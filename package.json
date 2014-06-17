@@ -1,0 +1,20 @@
+{
+  "name": "better-forms",
+  "description": "A better way to create, validate and handle forms",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "dependencies": {
+    "underscore": "~1.6.0"
+  },
+  "devDependencies": {
+    "sinon": "~1.10.2",
+    "chai": "~1.9.1",
+    "mocha": "~1.20.1",
+    "sinon-chai": "~2.5.0",
+    "chai-jquery": "~1.2.3",
+    "chai-as-promised": "~4.1.1",
+    "mocha-as-promised": "~2.0.0"
+  }
+}
