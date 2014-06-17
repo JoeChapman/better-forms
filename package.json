@@ -1,27 +1,52 @@
 {
-  "name": "better-forms",
-  "description": "A better way to create, validate and handle forms",
-  "version": "0.0.1",
-  "scripts": {
-    "test": "mocha test/",
-    "lint": "[ -z \"$LINTFILES\" ] && LINTFILES='**'; ./node_modules/jshint/bin/jshint ${LINTFILES}"
-  },
-  "dependencies": {
-    "underscore": "~1.6.0",
-    "nobleclass": "~0.1.2"
-  },
-  "devDependencies": {
-    "sinon": "~1.10.2",
-    "chai": "~1.9.1",
-    "mocha": "~1.20.1",
-    "sinon-chai": "~2.5.0",
-    "chai-jquery": "~1.2.3",
-    "chai-as-promised": "~4.1.1",
-    "mocha-as-promised": "~2.0.0",
-    "express": "~4.4.3",
-    "supertest": "~0.13.0",
-    "body-parser": "~1.3.1",
-    "cookie-parser": "~1.1.0",
-    "express-session": "~1.3.1"
-  }
+    "name": "better-forms",
+    "description": "A better way to create, validate and handle forms",
+    "keywords": ["forms", "validation"],
+    "version": "0.0.1",
+    "scripts": {
+        "test": "mocha test/",
+        "lint": "[ -z \"$LINTFILES\" ] && LINTFILES='**'; jshint ${LINTFILES}"
+    },
+    "private": "true",
+    "contributors": [{
+        "name": "Joe Chapman",
+        "email": "info@josephchapman.com"
+    }, {
+        "name": "Keith Cirkel",
+        "email": "keith@keithamus.com"
+    }, {
+        "name": "Ben Marvell",
+        "email": ""
+    }, {
+        "name": "Harry Willis",
+        "email": ""
+    }, {
+        "name": "Matt O'Donoghue",
+        "email": ""
+    }, {
+        "name": "Lenny Martin",
+        "email": "hello@lennym.co.uk"
+    }],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/joechapman/better-forms.git"
+    },
+    "dependencies": {
+        "underscore": "~1.6.0",
+        "nobleclass": "~0.1.2"
+    },
+    "devDependencies": {
+        "sinon": "~1.10.2",
+        "chai": "~1.9.1",
+        "mocha": "~1.20.1",
+        "sinon-chai": "~2.5.0",
+        "chai-jquery": "~1.2.3",
+        "chai-as-promised": "~4.1.1",
+        "mocha-as-promised": "~2.0.0",
+        "express": "~4.4.3",
+        "supertest": "~0.13.0",
+        "body-parser": "~1.3.1",
+        "cookie-parser": "~1.1.0",
+        "express-session": "~1.3.1"
+    }
 }
