@@ -1,0 +1,4 @@
+*.log
+*.md
+package.json
+node_modules
