@@ -497,7 +497,7 @@ describe('Form:', sandbox(function () {
                 instance.fields[1].value = 'Bar';
                 instance.fields[2].value = '22';
 
-                instance.should.equal(instance.validate(), null);
+                should.equal(instance.validate(), null);
 
             });
 
