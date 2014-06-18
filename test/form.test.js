@@ -22,9 +22,9 @@ describe('Form:', sandbox(function () {
                 form = {};
 
                 fields = Form.prototype.createFields.call(form, {
-                    firstName: new Form.fields.string(),
-                    lastName: new Form.fields.string(),
-                    age: new Form.fields.number({label: 'Test'})
+                    firstName: Form.fields.string(),
+                    lastName: Form.fields.string(),
+                    age: Form.fields.number({label: 'Test'})
                 });
 
             });
