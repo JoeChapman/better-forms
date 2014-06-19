@@ -2,7 +2,7 @@
 
 var forms = require('../');
 
-var f = module.exports = forms('Simple', {
+var form = module.exports = forms('Simple', {
     name: { required: true, id: 'fname' },
     addr: forms.fields.email(),
     pass: forms.fields.password({
@@ -14,5 +14,4 @@ var f = module.exports = forms('Simple', {
     method: 'GET'
 });
 
-
-// console.log(f.fields.password.html());
+console.log(form.html());
