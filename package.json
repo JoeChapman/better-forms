@@ -33,7 +33,7 @@
     },
     "dependencies": {
         "underscore": "~1.6.0",
-        "nobleclass": "~0.1.2"
+        "kayclass": "~0.1.0"
     },
     "devDependencies": {
         "sinon": "~1.10.2",
