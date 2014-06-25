@@ -3,7 +3,7 @@ Better Forms
 
 A better way to create, validate and handle forms
 
-### Setup
+### Install
 ````
 npm install --save
 ````
@@ -12,15 +12,15 @@ npm install --save
 ````
 npm test
 ````
+
+### Lint
 ````
 npm run lint
 ````
 
 ### Examples
-
-Inspect the html that the form creation generates
 ````
-node examples/simple
-node examples/fieldsets
-node examples/handlers
+cd examples/simple
+node server
 ````
+Browse to http://localhost:3030
