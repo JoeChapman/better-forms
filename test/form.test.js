@@ -7,13 +7,14 @@ describe('Form:', sandbox(function () {
         express = require('express'),
         request = require('supertest'),
         Form = require('../lib/form'),
+        fields = require('../lib/fields'),
         Field = Form.Field,
         instance;
 
 
     describe('.createFields()', function () {
 
-        var fields = null, form;
+        var _fields = null, form;
 
         describe('with fields', function () {
 
@@ -21,31 +22,31 @@ describe('Form:', sandbox(function () {
 
                 form = {};
 
-                fields = Form.prototype.createFields.call(form, {
-                    firstName: Form.fields.string(),
-                    lastName: Form.fields.string(),
-                    age: Form.fields.number({label: 'Test'})
+                _fields = Form.prototype.createFields.call(form, {
+                    firstName: fields.string(),
+                    lastName: fields.string(),
+                    age: fields.number({label: 'Test'})
                 });
 
             });
 
-            it('returns a list of new field instances', function () {
+            it('returns a hash of new field instances identified by their ids', function () {
 
-                fields[0].should.be.instanceof.Field;
-                fields[1].should.be.instanceof.Field;
-                fields[2].should.be.instanceof.Field;
+                _fields.firstName.should.be.instanceof.Field;
+                _fields.lastName.should.be.instanceof.Field;
+                _fields.age.should.be.instanceof.Field;
 
             });
 
             it('ensures each field has a label generated from name if not provided', function () {
 
-                fields[0]
+                _fields.firstName
                     .label.should.equal('First name');
 
-                fields[1]
+                _fields.lastName
                     .label.should.equal('Last name');
 
-                fields[2]
+                _fields.age
                     .label.should.equal('Test');
 
             });
