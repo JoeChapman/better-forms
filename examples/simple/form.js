@@ -22,6 +22,7 @@ module.exports = forms('simple', {
         type: 'password',
         id: 'confirm',
         required: true,
+        validateif: 'password',
         match: 'password'
     }
 }, {
