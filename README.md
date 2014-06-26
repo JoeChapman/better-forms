@@ -4,6 +4,7 @@ Better Forms
 A better way to create, validate and handle forms in [node](http://nodejs.org)
 
 [![Build Status](https://travis-ci.org/JoeChapman/better-forms.svg?branch=master)](https://travis-ci.org/JoeChapman/better-forms)
+[![NPM version](https://badge.fury.io/js/better-forms.svg)](http://badge.fury.io/js/better-forms)
 
 ```js
 var forms = require('forms');
