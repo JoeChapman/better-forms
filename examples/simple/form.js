@@ -1,6 +1,6 @@
 'use strict';
 
-var forms = require('../../index');
+var forms = require('../../');
 
 module.exports = forms('simple', {
     fname: {

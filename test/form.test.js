@@ -468,7 +468,7 @@ describe('Form:', sandbox(function () {
 
             it('renders fieldsets if defined', function () {
 
-                instance.options.fieldsets = [
+                instance.fieldsets = [
                     { fields: ['firstName'] },
                     { fields: ['lastName'] }
                 ];
@@ -477,10 +477,8 @@ describe('Form:', sandbox(function () {
                     .should.equal('<form method="post" action="" id="aForm" role="form">' +
                         '<errorHtml>' +
                         '<fieldset>' +
-                        '<div class="field" data-type="text"><field:firstName value=""/></div>' +
                         '</fieldset>' +
                         '<fieldset>' +
-                        '<div class="field" data-type="text"><field:lastName value=""/></div>' +
                         '</fieldset>' +
                         '<buttonsHtml>' +
                         '</form>');

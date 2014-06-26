@@ -1,8 +1,8 @@
 'use strict';
 
-var form = require('../');
+var forms = require('../../');
 
-var f = module.exports = form('Fieldsets', [{
+module.exports = forms('fieldsets', [{
     legend: 'User',
     fields: {
         name: {
@@ -10,8 +10,8 @@ var f = module.exports = form('Fieldsets', [{
             id: 'fname',
             label: 'First name'
         },
-        email: form.fields.email(),
-        pass: form.fields.password({
+        email: new forms.fields.email(),
+        pass: new forms.fields.password({
             id: 'password',
             required: true,
             minlength: '6'
@@ -19,19 +19,19 @@ var f = module.exports = form('Fieldsets', [{
         confirm: {
             type: 'password',
             required: true,
-            id: 'confirm'
+            id: 'confirm',
+            match: 'password'
         }
     }
 }, {
     legend: 'About',
     fields: {
-        likes: form.fields.checkbox(),
-        gender: form.fields.radio()
+        likes: new forms.fields.checkbox()
     }
 }], {
     action: '/',
-    method: 'GET',
-    template: __dirname + '/login'
+    method: 'POST',
+    template: 'fieldsets',
+    novalidate: true
 });
 
-f.html()
