@@ -3,39 +3,23 @@
   "description": "A better way to create, validate and handle forms",
   "keywords": [
     "forms",
-    "validation"
+    "validation",
+    "parser",
+    "express",
+    "fields"
   ],
   "version": "0.0.1",
   "scripts": {
     "test": "mocha test/",
     "lint": "[ -z \"$LINTFILES\" ] && LINTFILES='**'; jshint ${LINTFILES}"
   },
-  "private": "true",
   "contributors": [
-    {
-      "name": "Joe Chapman",
-      "email": "info@josephchapman.com"
-    },
-    {
-      "name": "Keith Cirkel",
-      "email": "keith@keithamus.com"
-    },
-    {
-      "name": "Ben Marvell",
-      "email": ""
-    },
-    {
-      "name": "Harry Willis",
-      "email": ""
-    },
-    {
-      "name": "Matt O'Donoghue",
-      "email": ""
-    },
-    {
-      "name": "Lenny Martin",
-      "email": "hello@lennym.co.uk"
-    }
+      "Joe Chapman <info@josephchapman.com>",
+      "Keith Cirkel <keith@keithamus.com>",
+      "Ben Marvell",
+      "Harry Willis",
+      "Matt O'Donoghue",
+      "Lenny Martin"
   ],
   "repository": {
     "type": "git",
@@ -54,6 +38,7 @@
     "chai-as-promised": "~4.1.1",
     "mocha-as-promised": "~2.0.0",
     "express": "~4.4.3",
-    "supertest": "~0.13.0"
+    "supertest": "~0.13.0",
+    "body-parser": "1.4.3"
   }
 }
