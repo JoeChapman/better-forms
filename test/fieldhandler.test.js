@@ -38,7 +38,7 @@ describe('FieldHandler:', sandbox(function () {
 
         app.set('views', __dirname + '/dummyViews/');
         app.set('view engine', 'jade');
-        app.use(require('body-parser')());
+        app.use(require('body-parser').json({extended: true}));
         app.use(require('cookie-parser')('a'));
         app.use(require('express-session')({ secret: 'a' }));
         // Simple wrapper for mocking request objects.
