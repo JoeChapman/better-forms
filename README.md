@@ -3,22 +3,24 @@ Better Forms
 
 A better way to create, validate and handle forms
 
-### Install
+### Setup
+
+#### Install
 ````
 npm install --save
 ````
 
-### Test
+#### Test
 ````
 npm test
 ````
 
-### Lint
+#### Lint
 ````
 npm run lint
 ````
 
-### Examples
+#### Examples
 ````
 cd examples/simple
 node server
