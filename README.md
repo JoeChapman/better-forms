@@ -3,6 +3,8 @@ Better Forms
 
 A better way to create, validate and handle forms in [node](http://nodejs.org)
 
+[![Build Status](https://travis-ci.org/JoeChapman/better-forms.svg?branch=master)](https://travis-ci.org/JoeChapman/better-forms)
+
 ```js
 var forms = require('forms');
 
