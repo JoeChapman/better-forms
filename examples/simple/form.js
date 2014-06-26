@@ -11,10 +11,10 @@ module.exports = forms('simple', {
         required: true,
         id: 'lastname'
     },
-    email: forms.fields.email({
+    email: new forms.fields.email({
         validateif: 'firstname'
     }),
-    pass: forms.fields.password({
+    pass: new forms.fields.password({
         id: 'password',
         required: true
     }),
