@@ -9,6 +9,9 @@
     "fields"
   ],
   "version": "0.0.1",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
   "scripts": {
     "test": "mocha test/",
     "lint": "[ -z \"$LINTFILES\" ] && LINTFILES='**'; jshint ${LINTFILES}"
