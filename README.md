@@ -1,28 +1,61 @@
 Better Forms
 ============
 
-A better way to create, validate and handle forms
+A better way to create, validate and handle forms in [node](http://nodejs.org)
 
-### Setup
+```js
+var forms = require('forms');
 
-#### Install
+module.exports = forms('my_form', {
+    fname: new forms.fields.string({label: 'First name', required: true}),
+    lname: new forms.fields.string({label: 'Last name', requiredif: 'fname'})
+});
+```
+
+```js
+var my_form = require('../my_form');
+
+res.render('my_tempplate', {form: my_form})
+```
+
+```jade
+doctype html
+html(lang="en")
+    head
+        meta(charset='utf-8')
+        title Simple Form
+    body
+        !=forms.my_form.html
+```
+
+### Usage
+
+Install
 ````
-npm install --save
+npm install better-forms
 ````
 
-#### Test
+Test
 ````
 npm test
 ````
 
-#### Lint
+Lint
 ````
 npm run lint
 ````
 
-#### Examples
+### Examples
 ````
-cd examples/simple
-node server
+$ git clone git@github.com:JoeChapman/better-forms.git
+$ cd better-forms
+$ npm install
 ````
-Browse to http://localhost:3030
+
+then run an example such as,
+
+````
+$ node examples/simple/server
+````
+
+and browse to http://localhost:3030
