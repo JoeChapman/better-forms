@@ -9,16 +9,24 @@ A better way to create, validate and handle forms in [node](http://nodejs.org)
 ```js
 var forms = require('forms');
 
-module.exports = forms('my_form', {
+module.exports = forms('simpleform', {
     fname: new forms.fields.string({label: 'First name', required: true}),
     lname: new forms.fields.string({label: 'Last name', requiredif: 'fname'})
+}, {
+    action: '/',
+    method: 'POST',
+    novalidate: true,
+    template: 'simple'
 });
 ```
 
 ```js
 var my_form = require('../my_form');
 
-res.render('my_tempplate', {form: my_form})
+app
+    .get('/', form.requestHandler)
+    .post('/', form.requestHandler);
+
 ```
 
 ```jade
@@ -28,7 +36,7 @@ html(lang="en")
         meta(charset='utf-8')
         title Simple Form
     body
-        !=forms.my_form.html
+        !=forms.simpleform.html
 ```
 
 ### Usage
