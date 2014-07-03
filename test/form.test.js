@@ -1383,6 +1383,39 @@ describe('Form:', sandbox(function () {
 
                 });
 
+                it('responds as JSON to an XHR request with HTML string errors if the form is invalid and options.htmlErrors is true', function (next) {
+
+                    instance.options.htmlErrors = true;
+
+                    request(app)
+                        .post('/form')
+                        .set('X-Requested-With', 'XMLHttpRequest')
+                        .send({ firstName: '', lastName: 'Bar', age: '' })
+                        .end(function (err, res) {
+
+                            res.statusCode
+                                .should.equal(403);
+
+                            res.body
+                                .should.deep.equal({
+                                    values: {
+                                        firstName: '',
+                                        lastName: 'Bar',
+                                        age: ''
+                                    },
+                                    errorMessage: {
+                                        form: '<div class=\"formError\"><p>This form contains errors</p></div>',
+                                        fields: {
+                                            firstName: '<div class=\"fieldError\">This field is required</div>'
+                                        }
+                                    }
+                                });
+
+                            next(err);
+                        });
+
+                });
+
                 it('passes error to error handling middleware if an error exists', function (next) {
 
                     this.stub(instance, 'retrieve', function (req, res, callback) {

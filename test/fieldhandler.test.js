@@ -125,7 +125,10 @@ describe('FieldHandler:', sandbox(function () {
             instance.setupFormHandler(req, res, function () {
 
                 var fieldInstance = instance.fields.firstName,
-                    fieldHandler = req.forms.aForm.fields.firstName;
+                    fieldHandler = req.forms.aForm.fields.firstName,
+                    fields = {firstName: {}, lastName: {}, age: {}};
+
+                fieldInstance.fields = fields;
 
                 fieldHandler.widgetHtml
                     .should.equal(fieldInstance.widgetHtml(values.firstName, options));
@@ -140,10 +143,10 @@ describe('FieldHandler:', sandbox(function () {
                     .should.always.have.been.calledWithExactly(values.firstName, options);
 
                 fieldHandler.errorHtml
-                    .should.equal(fieldInstance.errorHtml(values.firstName, options));
+                    .should.equal(fieldInstance.errorHtml(values.firstName, options, fields));
 
                 fieldInstance.errorHtml
-                    .should.always.have.been.calledWithExactly(values.firstName, options);
+                    .should.have.been.calledWith(values.firstName, options, fields);
 
                 fieldHandler.html
                     .should.equal(fieldInstance.html(values.firstName, options));
