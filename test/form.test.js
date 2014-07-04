@@ -1383,6 +1383,70 @@ describe('Form:', sandbox(function () {
 
                 });
 
+                it('responds as JSON to an XHR request with HTML string errors if options.htmlErrors is true', function (next) {
+
+                    instance.options.htmlErrors = true;
+
+                    request(app)
+                        .post('/form')
+                        .set('X-Requested-With', 'XMLHttpRequest')
+                        .send({ firstName: '', lastName: 'Bar', age: '' })
+                        .end(function (err, res) {
+
+                            res.statusCode
+                                .should.equal(403);
+
+                            res.body
+                                .should.deep.equal({
+                                    values: {
+                                        firstName: '',
+                                        lastName: 'Bar',
+                                        age: ''
+                                    },
+                                    errorMessage: {
+                                        form: '<div class=\"formError\"><p>This form contains errors</p></div>',
+                                        fields: {
+                                            firstName: '<div class=\"fieldError\">This field is required</div>'
+                                        }
+                                    }
+                                });
+
+                            next(err);
+                        });
+
+                });
+
+                it('responds as JSON to an XHR request with HTML string errors if request header \'x-errors-as-html\' is \'enabled\'', function (next) {
+
+                    request(app)
+                        .post('/form')
+                        .set({'X-Requested-With': 'XMLHttpRequest', 'x-errors-as-html': 'enabled'})
+                        .send({ firstName: '', lastName: 'Bar', age: '' })
+                        .end(function (err, res) {
+
+                            res.statusCode
+                                .should.equal(403);
+
+                            res.body
+                                .should.deep.equal({
+                                    values: {
+                                        firstName: '',
+                                        lastName: 'Bar',
+                                        age: ''
+                                    },
+                                    errorMessage: {
+                                        form: '<div class=\"formError\"><p>This form contains errors</p></div>',
+                                        fields: {
+                                            firstName: '<div class=\"fieldError\">This field is required</div>'
+                                        }
+                                    }
+                                });
+
+                            next(err);
+                        });
+
+                });
+
                 it('passes error to error handling middleware if an error exists', function (next) {
 
                     this.stub(instance, 'retrieve', function (req, res, callback) {

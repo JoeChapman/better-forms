@@ -11,7 +11,7 @@ var forms = require('forms');
 
 module.exports = forms('simpleform', {
     fname: new forms.fields.string({label: 'First name', required: true}),
-    lname: new forms.fields.string({label: 'Last name', requiredif: 'fname'})
+    lname: new forms.fields.string({label: 'Last name', validateif: 'fname'})
 }, {
     action: '/',
     method: 'POST',

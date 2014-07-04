@@ -26,7 +26,7 @@ describe('Field:', sandbox(function () {
                     'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'value',
                     'required', 'selectiondirection', 'autocomplete', 'inputmode', 'list',
                     'minlength', 'maxlength', 'spellcheck', 'readonly', 'placeholder', 'pattern',
-                    'step'
+                    'step', 'match'
                 ]);
 
         });
@@ -37,7 +37,8 @@ describe('Field:', sandbox(function () {
             instance.validStateMessages
                 .should.deep.equal([
                     'badInput', 'customError', 'patternMismatch', 'rangeOverflow',
-                    'rangeUnderflow', 'stepMismatch', 'tooLong', 'typeMismatch',    'valueMissing'
+                    'rangeUnderflow', 'stepMismatch', 'tooLong', 'typeMismatch',
+                    'valueMissing', 'noMatch'
                 ]);
 
         });
@@ -169,7 +170,8 @@ describe('Field:', sandbox(function () {
                         'stepMismatch': 'Step wrong',
                         'tooLong': 'Too long',
                         'typeMismatch': 'Wrong type',
-                        'valueMissing': 'Missing'
+                        'valueMissing': 'Missing',
+                        'noMatch': 'Not matching'
                     }});
 
                     instance.widgetHtml(undefined, { renderErrors: true })
@@ -182,7 +184,8 @@ describe('Field:', sandbox(function () {
                             'data-message-stepMismatch="Step wrong" ' +
                             'data-message-tooLong="Too long" ' +
                             'data-message-typeMismatch="Wrong type" ' +
-                            'data-message-valueMissing="Missing"/>'
+                            'data-message-valueMissing="Missing" ' +
+                            'data-message-noMatch="Not matching"/>'
                         );
 
                 });
@@ -236,6 +239,22 @@ describe('Field:', sandbox(function () {
                             'data-message-patternMismatch="Please use the required format"/>'
                         );
                 });
+
+                it('will add data-message-noMatch attribute if match is defined', function () {
+
+                    instance = new Field({
+                        match: 'password',
+                        id: 'confirm'
+                    });
+
+                    instance.widgetHtml(undefined, { renderErrors: true })
+                        .should.equal('<input type="text" ' +
+                            'match="password" ' +
+                            'name="confirm" ' +
+                            'id="confirm" ' +
+                            'data-message-noMatch="' + instance.id + ' must match ' + instance.match + '"/>'
+                        );
+                });
             });
 
         });
@@ -249,6 +268,17 @@ describe('Field:', sandbox(function () {
             it('will return null if the field is valid', function () {
 
                 should.equal(instance.validate(), null);
+
+            });
+
+            it('will return null if the field has validateif option referring to a field that has no value', function () {
+
+                var password = new Field({ id: 'password', value: '' });
+                instance.validateif = 'password';
+
+                instance.required = true;
+
+                should.equal(instance.validate('', {}, { password: password }), null);
 
             });
 
