@@ -1,10 +1,12 @@
 Better Forms
 ============
 
-A better way to create, validate and handle forms in [node](http://nodejs.org)
+A better way to create, validate and handle forms in [Express](https://github.com/expressjs)
 
 [![Build Status](https://travis-ci.org/JoeChapman/better-forms.svg?branch=master)](https://travis-ci.org/JoeChapman/better-forms)
 [![NPM version](https://badge.fury.io/js/better-forms.svg)](http://badge.fury.io/js/better-forms)
+
+### Usage
 
 ```js
 var forms = require('forms');
@@ -21,7 +23,7 @@ module.exports = forms('simpleform', {
 ```
 
 ```js
-var my_form = require('../my_form');
+var form = require('../form');
 
 app
     .get('/', form.requestHandler)
@@ -39,7 +41,24 @@ html(lang="en")
         !=forms.simpleform.html
 ```
 
-### Usage
+• Adds CSRF support. Install [csurf](https://github.com/expressjs/csurf) and include the following dependencies and middleware in your express server;
+
+```js
+    app.use(require('csurf')())
+    app.use(require('./middleware/csrf')())
+```
+
+```js
+module.exports = function () {
+    return function (req, res, next) {
+        res.locals._csrf = req.csrfToken();
+        next();
+    };
+};
+```
+
+
+### Setup
 
 Install
 ````
