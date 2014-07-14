@@ -20,3 +20,12 @@ Features:
 - Make json in xhr response optionally take html strings as messages (#6 @joechapman)
 - Fix validateif validation
 - increase test coverage
+
+0.0.5 (14.07.2014)
+==================
+
+Features:
+
+- Add noMatch and tooShort to data-message attrs
+- Add match and validateif to available attributes
+- Always render data-message attrs

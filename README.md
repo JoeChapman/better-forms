@@ -6,7 +6,7 @@ A better way to create, validate and handle forms in [Express](https://github.co
 [![Build Status](https://travis-ci.org/JoeChapman/better-forms.svg?branch=master)](https://travis-ci.org/JoeChapman/better-forms)
 [![NPM version](https://badge.fury.io/js/better-forms.svg)](http://badge.fury.io/js/better-forms)
 
-### Usage
+### Example usage
 
 ```js
 var forms = require('forms');
