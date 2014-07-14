@@ -26,7 +26,7 @@ describe('Field:', sandbox(function () {
                     'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'value',
                     'required', 'selectiondirection', 'autocomplete', 'inputmode', 'list',
                     'minlength', 'maxlength', 'spellcheck', 'readonly', 'placeholder', 'pattern',
-                    'step', 'match'
+                    'step', 'match', 'validateif'
                 ]);
 
         });
@@ -38,7 +38,7 @@ describe('Field:', sandbox(function () {
                 .should.deep.equal([
                     'badInput', 'customError', 'patternMismatch', 'rangeOverflow',
                     'rangeUnderflow', 'stepMismatch', 'tooLong', 'typeMismatch',
-                    'valueMissing', 'noMatch'
+                    'valueMissing', 'noMatch', 'tooShort'
                 ]);
 
         });
@@ -124,7 +124,7 @@ describe('Field:', sandbox(function () {
                     .should.equal('<input type="text" autofocus="true" disabled="true" ' +
                         'form="a" formaction="/" formenctype="utf-8" formmethod="post" ' +
                         'formnovalidate="true" formtarget="a" value="foo" required="true" ' +
-                        'selectiondirection="rtl" name="foo" id="foo"/>');
+                        'selectiondirection="rtl" name="foo" id="foo" data-message-valueMissing="This field is required"/>');
 
             });
 
