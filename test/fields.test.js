@@ -123,7 +123,7 @@ describe('Fields:', sandbox(function () {
             it('adds choices to option elements', function () {
 
                 instance.widgetHtml()
-                    .should.equal('<select required="true" name="select" id="select"><option value="Mr">Mr</option><option value="Mrs">Mrs</option><option value="Miss">Miss</option></select>');
+                    .should.equal('<select required="true" name="select" id="select" data-message-valueMissing="This field is required"><option value="Mr">Mr</option><option value="Mrs">Mrs</option><option value="Miss">Miss</option></select>');
 
             });
 
