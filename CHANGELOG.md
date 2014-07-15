@@ -29,3 +29,12 @@ Features:
 - Add noMatch and tooShort to data-message attrs
 - Add match and validateif to available attributes
 - Always render data-message attrs
+
+0.0.6 (15.07.2014)
+==================
+
+Features:
+
+- Add checked and name attributes to Field class
+- Persist selected option in select field
+- Get correct radio value when parsing body

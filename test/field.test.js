@@ -26,7 +26,7 @@ describe('Field:', sandbox(function () {
                     'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'value',
                     'required', 'selectiondirection', 'autocomplete', 'inputmode', 'list',
                     'minlength', 'maxlength', 'spellcheck', 'readonly', 'placeholder', 'pattern',
-                    'step', 'match', 'validateif'
+                    'step', 'match', 'validateif', 'name', 'checked'
                 ]);
 
         });
