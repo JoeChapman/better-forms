@@ -127,6 +127,13 @@ describe('Fields:', sandbox(function () {
 
             });
 
+            it('selects choice whose value matches the value argument', function () {
+
+                instance.widgetHtml('Mrs')
+                    .should.equal('<select required="true" name="select" id="select" data-message-valueMissing="This field is required"><option value="Mr">Mr</option><option value="Mrs" selected="selected">Mrs</option><option value="Miss">Miss</option></select>');
+
+            });
+
         });
 
         describe('.validate()', function () {
@@ -173,7 +180,7 @@ describe('Fields:', sandbox(function () {
             it('adds checked attribute if value passed matches values attribute', function () {
 
                 instance.widgetHtml(true)
-                    .should.equal('<input type="checkbox" value="true" name="checkbox" id="checkbox" checked="true"/>');
+                    .should.equal('<input type="checkbox" value="true" name="checkbox" id="checkbox" checked="checked"/>');
 
             });
 
