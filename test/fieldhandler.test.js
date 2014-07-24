@@ -149,10 +149,10 @@ describe('FieldHandler:', sandbox(function () {
                     .should.have.been.calledWith(values.firstName, options, fields);
 
                 fieldHandler.html
-                    .should.equal(fieldInstance.html(values.firstName, options));
+                    .should.equal(fieldInstance.html(values.firstName, options, fields));
 
                 fieldInstance.html
-                    .should.always.have.been.calledWithExactly(values.firstName, options);
+                    .should.have.been.calledWithExactly(values.firstName, options, fields);
 
                 callback();
             }, null, values, options);

@@ -161,6 +161,20 @@ describe('Fields:', sandbox(function () {
             instance = new fields.checkbox({ id: 'checkbox', label: 'label' });
         });
 
+        describe('instance', function () {
+
+            it('has an availableAttributes array, with available attributes for the field', function () {
+
+                instance.availableAttributes
+                    .should.deep.equal([
+                        'autofocus', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod',
+                        'formnovalidate', 'formtarget', 'required', 'selectiondirection', 'value',
+                        'autocomplete', 'inputmode', 'list', 'readonly', 'validateif', 'name', 'checked'
+                    ]);
+
+            });
+        });
+
         describe('.html()', function () {
 
             it('renders input first', function () {
@@ -169,7 +183,7 @@ describe('Fields:', sandbox(function () {
                 this.stub(instance, 'labelHtml', function () { return 'labelHtml'; });
 
                 instance.html()
-                    .should.equal('widgetHtmllabelHtml');
+                    .should.equal('<div class=\"field\" data-type=\"checkbox\">widgetHtmllabelHtml</div>');
 
             });
 
@@ -214,6 +228,65 @@ describe('Fields:', sandbox(function () {
 
                 instance.parseBody({ body: { checkbox: 'aString' } })
                     .should.equal('aString');
+
+            });
+
+        });
+
+    });
+
+    describe('.radio', function () {
+
+        beforeEach(function () {
+            instance = new fields.radio({ id: 'radio-foo', label: 'label', name: 'radio', value: 'foo' });
+        });
+
+        describe('instance', function () {
+
+            it('has an availableAttributes array, with available attributes for the field', function () {
+
+                instance.availableAttributes
+                    .should.deep.equal([
+                        'autofocus', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod',
+                        'formnovalidate', 'formtarget', 'required', 'selectiondirection', 'value',
+                        'autocomplete', 'inputmode', 'list', 'readonly', 'validateif', 'name', 'checked'
+                    ]);
+
+            });
+
+        });
+
+        describe('.html()', function () {
+
+            it('renders input first', function () {
+
+                this.stub(instance, 'widgetHtml', function () { return 'widgetHtml'; });
+                this.stub(instance, 'labelHtml', function () { return 'labelHtml'; });
+
+                instance.html()
+                    .should.equal('<div class=\"field\" data-type=\"radio\">widgetHtmllabelHtml</div>');
+
+            });
+
+        });
+
+        describe('.widgetHtml()', function () {
+
+            it('adds checked attribute if value passed matches values attribute', function () {
+
+                instance.widgetHtml('foo')
+                    .should.equal('<input type="radio" value="foo" name="radio" id="radio-foo" checked="checked"/>');
+
+            });
+
+        });
+
+        describe('.parseBody()', function () {
+
+            it('compares POSTed string value to the body value', function () {
+
+                instance.parseBody({ body: { radio: 'foo' } })
+                    .should.equal('foo');
 
             });
 

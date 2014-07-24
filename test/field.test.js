@@ -26,7 +26,7 @@ describe('Field:', sandbox(function () {
                     'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'value',
                     'required', 'selectiondirection', 'autocomplete', 'inputmode', 'list',
                     'minlength', 'maxlength', 'spellcheck', 'readonly', 'placeholder', 'pattern',
-                    'step', 'match', 'validateif', 'name', 'checked'
+                    'step', 'match', 'validateif', 'name',
                 ]);
 
         });
@@ -71,7 +71,7 @@ describe('Field:', sandbox(function () {
 
                 instance = new Field({ id: 'foo', label: 'bar' });
                 instance.labelHtml()
-                    .should.equal('<label for="foo">bar<span class=\"optionalIndicator\">(optional)</span></label>');
+                    .should.equal('<label for="foo">bar</label>');
 
             });
 
@@ -79,7 +79,7 @@ describe('Field:', sandbox(function () {
 
                 instance = new Field({ id: 'foo', label: 'bar' });
                 instance.labelHtml(null, { label: 'baz' })
-                    .should.equal('<label for="foo">baz<span class=\"optionalIndicator\">(optional)</span></label>');
+                    .should.equal('<label for="foo">baz</label>');
 
             });
 
@@ -92,12 +92,21 @@ describe('Field:', sandbox(function () {
 
             });
 
-            it('adds a required indicator if field is required', function () {
+            it('adds an optionalIndicator if field is optional', function () {
 
-                instance = new Field({ id: 'foo', label: 'baz', required: true });
+                instance = new Field({ id: 'foo', label: 'baz', optional: true });
 
                 instance.labelHtml()
-                    .should.equal('<label for="foo">baz</label>');
+                    .should.equal('<label for="foo">baz<span class="optionalIndicator">(optional)</span></label>');
+
+            });
+
+            it('adds an optionalIndicator message to the optional field if optional is a string', function () {
+
+                instance = new Field({ id: 'foo', label: 'baz', optional: 'This field is not required' });
+
+                instance.labelHtml()
+                    .should.equal('<label for="foo">baz<span class="optionalIndicator">This field is not required</span></label>');
 
             });
 
@@ -474,7 +483,7 @@ describe('Field:', sandbox(function () {
                 instance.value = '';
 
                 instance.errorHtml()
-                    .should.equal('<div class="fieldError">This field is required</div>');
+                    .should.equal('<label class="fieldError">This field is required</label>');
 
             });
 
@@ -484,14 +493,14 @@ describe('Field:', sandbox(function () {
                 instance.value = 'a';
 
                 instance.errorHtml('b')
-                    .should.equal('<div class="fieldError">Please use the required format</div>');
+                    .should.equal('<label class="fieldError">Please use the required format</label>');
 
                 delete instance.pattern;
                 instance.required = true;
                 instance.value = 'a';
 
                 instance.errorHtml('')
-                    .should.equal('<div class="fieldError">This field is required</div>');
+                    .should.equal('<label class="fieldError">This field is required</label>');
 
             });
 
@@ -508,20 +517,38 @@ describe('Field:', sandbox(function () {
 
         describe('.html()', function () {
 
-            it('returns the concatinated output of labelHtml + widgetHtml + errorHtml', function () {
+            it('returns the concatenated output of labelHtml + widgetHtml + errorHtml', function () {
 
                 instance.html()
-                    .should.equal(instance.labelHtml() + instance.widgetHtml() + instance.errorHtml());
+                    .should.equal('<div class=\"field\" data-type=\"text\">' + instance.labelHtml() + instance.widgetHtml() + instance.errorHtml() + '</div>');
+
+            });
+
+            it('uses the optional fieldWrapperTagName if provided', function () {
+
+                this.stub(instance, 'widgetHtml', function () { return '<input>'; } );
+
+                instance.html('', { fieldWrapperTagName: 'li' })
+                    .should.equal('<li class=\"field\" data-type=\"text\">' + instance.labelHtml() + instance.widgetHtml() + instance.errorHtml() + '</li>');
+
+            });
+
+            it('uses the instances fieldWrapperTagName if provided', function () {
+
+                instance.fieldWrapperTagName = 'p';
+
+                instance.html()
+                    .should.equal('<p class=\"field\" data-type=\"text\">' + instance.labelHtml() + instance.widgetHtml() + instance.errorHtml() + '</p>');
 
             });
 
             it('calls each method with the arguments given to it', function () {
 
+                var value = {}, options = {}, fields = {};
+
                 this.spy(instance, 'labelHtml');
                 this.spy(instance, 'widgetHtml');
                 this.spy(instance, 'errorHtml');
-
-                var value = {}, options = {}, fields = {};
 
                 instance.html(value, options, fields);
 

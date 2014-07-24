@@ -296,60 +296,22 @@ describe('Form:', sandbox(function () {
 
         });
 
-        describe('.fieldHtml()', function () {
+        describe('.fieldsHtml()', function () {
 
-            it('renders wrapped HTML of a given field (1st argument)', function () {
+            it('calls field.html with the value of the field, options and the instantiated fields collection', function () {
 
-                this.stub(instance.fields.firstName, 'html').returns('<foo:field:foo>');
-
-                instance.fieldHtml(instance.fields.firstName)
-                    .should.equal('<div class="field" data-type="text"><foo:field:foo></div>');
-
-            });
-
-            it('passes the 2nd argument as the field value', function () {
-
-                this.stub(instance.fields.firstName, 'html').returns('<foo:field:foo>');
-
-                instance.fieldHtml(instance.fields.firstName, 'a')
-                    .should.equal('<div class="field" data-type="text"><foo:field:foo></div>');
-
-                instance.fields.firstName.html
-                    .should.have.been.calledWith('a');
-
-            });
-
-            it('can be customised with fieldWrapperTagName and field.classes options', function () {
-
-                instance = new Form('aForm', {
-                    firstName: new Fields.string({ classes: ['foo', 'bar', 'baz'] }),
-                    lastName: new Fields.string(),
-                    age: new Fields.number()
-                }, {
-                    fieldWrapperTagName: 'field',
-                });
-
-                this.stub(instance.fields.firstName, 'html').returns('<foo:field:foo>');
-
-                instance.fieldHtml(instance.fields.firstName, 'a')
-                    .should.equal('<field class="field foo bar baz" data-type="text"><foo:field:foo></field>');
-
-                instance.fields.firstName.html
-                    .should.have.been.calledWith('a');
-
-            });
-
-            it('can include data attributes from the fields dataAttributes object', function () {
-
-                this.stub(instance.fields.firstName, 'html').returns('<foo:field:foo>');
-
-                instance.fields.firstName.dataAttributes = {
-                    foo: 'bar',
-                    baz: 'bang'
+                var values = {
+                    firstName: 'foo'
                 };
 
-                instance.fieldHtml(instance.fields.firstName)
-                    .should.equal('<div class="field" data-type="text" data-foo="bar" data-baz="bang"><foo:field:foo></div>');
+                instance._fields = {};
+
+                this.stub(instance.fields.firstName, 'html', function () {});
+
+                instance.fieldsHtml(values, {});
+
+                instance.fields.firstName.html
+                    .should.have.been.calledWith('foo', {}, instance._fields);
 
             });
 
@@ -370,7 +332,7 @@ describe('Form:', sandbox(function () {
             it('outputs form html including all fields html', function () {
 
                 this.stub(Field.prototype, 'html', function (value) {
-                    return '<field:' + this.id + ' value="' + (value || '') + '"/>';
+                    return '<div class="field" data-type="' + this.type + '"><field:' + this.id + ' value="' + (value || '') + '"/></div>';
                 });
 
                 instance.html()
@@ -458,12 +420,6 @@ describe('Form:', sandbox(function () {
 
                 instance.fieldHtml
                     .should.have.been.calledWithExactly(instance.fields.age, values.age, options);
-
-                // Field.prototype.html
-                //     .should.have.been.calledWithExactly(values.firstName, options, {});
-
-                // Field.prototype.html
-                //     .should.have.been.calledWithExactly(values.lastName, options, {});
 
             });
 
@@ -1406,7 +1362,7 @@ describe('Form:', sandbox(function () {
                                     errorMessage: {
                                         form: '<div class=\"formError\"><p>This form contains errors</p></div>',
                                         fields: {
-                                            firstName: '<div class=\"fieldError\">This field is required</div>'
+                                            firstName: '<label for=\"firstName\" class=\"fieldError\">This field is required</label>'
                                         }
                                     }
                                 });
@@ -1416,7 +1372,7 @@ describe('Form:', sandbox(function () {
 
                 });
 
-                it('responds as JSON to an XHR request with HTML string errors if request header \'x-errors-as-html\' is \'enabled\'', function (next) {
+                it('responds as JSON to an XHR request with HTML string errors if request header \"x-errors-as-html\" is \"enabled\"', function (next) {
 
                     request(app)
                         .post('/form')
@@ -1437,7 +1393,7 @@ describe('Form:', sandbox(function () {
                                     errorMessage: {
                                         form: '<div class=\"formError\"><p>This form contains errors</p></div>',
                                         fields: {
-                                            firstName: '<div class=\"fieldError\">This field is required</div>'
+                                            firstName: '<label for=\"firstName\" class=\"fieldError\">This field is required</label>'
                                         }
                                     }
                                 });
