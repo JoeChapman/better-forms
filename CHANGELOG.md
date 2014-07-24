@@ -47,3 +47,17 @@ Features:
 - Field html returns wrapped fields
 - Preselect select option
 - Documentation
+
+0.0.8 (24.07.2014)
+==================
+
+Features:
+
+- Fix documentation link
+
+0.0.9 (24.07.2014)
+==================
+
+Features:
+
+- Add typeMismatch validation and data-message to email Field
