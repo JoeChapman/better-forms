@@ -38,3 +38,12 @@ Features:
 - Add checked and name attributes to Field class
 - Persist selected option in select field
 - Get correct radio value when parsing body
+
+0.0.7 (24.07.2014)
+==================
+
+Features:
+
+- Field html returns wrapped fields
+- Preselect select option
+- Documentation
