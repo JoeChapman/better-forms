@@ -10,7 +10,7 @@ Use Better Forms to create your form, securely handle requests, validate form da
 
 ### Example usage
 
-Build a form, giving it a name and fields. [More examples](https://github.com/better-forms/DOCUMENTATION.md)
+Build a form, giving it a name and fields. [More examples](https://github.com/JoeChapman/better-forms/blob/master/DOCUMENTATION.md)
 
 ```js
 var forms = require('forms');
