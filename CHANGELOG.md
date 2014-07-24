@@ -47,3 +47,10 @@ Features:
 - Field html returns wrapped fields
 - Preselect select option
 - Documentation
+
+0.0.9 (24.07.2014)
+==================
+
+Bugfix:
+
+- Added typeMismatch to field validdationMessageAttributes
