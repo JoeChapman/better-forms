@@ -222,6 +222,33 @@ describe('Field:', sandbox(function () {
 
                 });
 
+                it('will add data-message-tooShort attribute if minlength is provided', function () {
+
+                    instance = new Field({
+                        minlength: 5
+                    });
+
+                    instance.widgetHtml(undefined, { renderErrors: true })
+                        .should.equal('<input type="text" ' +
+                            'minlength="5" ' +
+                            'data-message-tooShort="Please use 5 characters or more"/>'
+                        );
+
+                });
+
+                it('will add data-message-typeMismatch attribute if typeMismatch is provided', function () {
+
+                    instance = new Field({
+                        typeMismatch: true
+                    });
+
+                    instance.widgetHtml(undefined, { renderErrors: true })
+                        .should.equal('<input type="text" ' +
+                            'data-message-typeMismatch="Please enter a valid text"/>'
+                        );
+
+                });
+
                 it('will add data-message-valuemissing attribute if required is true', function () {
 
                     instance = new Field({
