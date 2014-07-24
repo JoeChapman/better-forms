@@ -27,6 +27,48 @@ describe('Fields:', sandbox(function () {
 
     });
 
+    describe('.url()', function () {
+
+        beforeEach(function () {
+            instance = new fields.url();
+        });
+
+        describe('.widgetHtml()', function () {
+
+            it('adds a typeMismatch data-message', function () {
+
+                instance.message = { typeMismatch: 'Invalid url' };
+
+                instance.widgetHtml('string')
+                    .should.equal('<input type="url" value="string" data-message-typeMismatch="Invalid url"/>');
+
+            });
+
+        });
+
+    });
+
+    describe('.tel()', function () {
+
+        beforeEach(function () {
+            instance = new fields.tel();
+        });
+
+        describe('.widgetHtml()', function () {
+
+            it('adds a typeMismatch data-message', function () {
+
+                instance.message = { typeMismatch: 'Invalid tel' };
+
+                instance.widgetHtml('string')
+                    .should.equal('<input type="tel" value="string" data-message-typeMismatch="Invalid tel"/>');
+
+            });
+
+        });
+
+    });
+
     describe('.email', function () {
 
         beforeEach(function () {
@@ -92,6 +134,20 @@ describe('Fields:', sandbox(function () {
             should.equal(instance.validate('a@a.a'), null);
 
         });
+
+        describe('.widgetHtml()', function () {
+
+            it('adds a typeMismatch data-message', function () {
+
+                instance.message = { typeMismatch: 'Invalid email' };
+
+                instance.widgetHtml('string')
+                    .should.equal('<input type="email" value="string" data-message-typeMismatch="Invalid email"/>');
+
+            });
+
+        });
+
 
     });
 

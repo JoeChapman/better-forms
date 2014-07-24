@@ -43,6 +43,15 @@ describe('Field:', sandbox(function () {
 
         });
 
+        it('has a mismatchableTypes array, with all types required for validation against typeMismatch', function () {
+
+            instance.mismatchableTypes
+                .should.deep.equal([
+                    'email', 'url', 'tel'
+                ]);
+
+        });
+
         it('composes the options given to it, into itself', function () {
 
             instance = new Field({ foo: true, bar: true });
