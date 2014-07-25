@@ -18,7 +18,6 @@ describe('FieldHandler:', sandbox(function () {
         this.spy(Field.prototype, 'labelHtml');
         this.spy(Field.prototype, 'errorHtml');
         this.spy(Field.prototype, 'labelText');
-        this.spy(Field.prototype, 'errorText');
         this.spy(Field.prototype, 'widgetAttributes');
     });
 
@@ -28,7 +27,6 @@ describe('FieldHandler:', sandbox(function () {
         Field.prototype.labelHtml.restore();
         Field.prototype.errorHtml.restore();
         Field.prototype.labelText.restore();
-        Field.prototype.errorText.restore();
         Field.prototype.widgetAttributes.restore();
     });
 
@@ -65,7 +63,7 @@ describe('FieldHandler:', sandbox(function () {
         };
     });
 
-    it('has valid and validationErrors properties on it, which call validate(values)', function (next) {
+    it('has errorText and valid properties on it, which call validate(values)', function (next) {
 
         this.spy(Field.prototype, 'validate');
         values.firstName = '';
@@ -84,7 +82,7 @@ describe('FieldHandler:', sandbox(function () {
 
                 fieldInstance.validate.reset();
 
-                fieldHandler.validationErrors
+                fieldHandler.errorText
                     .should.deep.equal(fieldInstance.validate(values.firstName));
 
                 callback();
@@ -184,7 +182,7 @@ describe('FieldHandler:', sandbox(function () {
 
     });
 
-    it('has labelText, errorText, widgetAttributes properties, which call their respective form methods', function (next) {
+    it('has labelText, widgetAttributes properties, which call their respective form methods', function (next) {
 
         values.firstName = '';
         var options = {};
@@ -203,12 +201,6 @@ describe('FieldHandler:', sandbox(function () {
 
                 fieldInstance.labelText
                     .should.always.have.been.calledWithExactly(values.firstName, options);
-
-                fieldHandler.errorText
-                    .should.deep.equal(fieldInstance.errorText(values.firstName, options, fields));
-
-                fieldInstance.errorText
-                    .should.have.been.calledWithExactly(values.firstName, options, fields);
 
                 fieldHandler.widgetAttributes
                     .should.deep.equal(fieldInstance.widgetAttributes(values.firstName, options));
