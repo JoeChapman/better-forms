@@ -61,3 +61,10 @@ Features:
 Features:
 
 - Add typeMismatch validation and data-message to email Field
+
+0.0.10 (25.07.2014)
+==================
+
+Features:
+
+- New fieldHandler helpers for errorText, labelText, widgetAttributes & choices
