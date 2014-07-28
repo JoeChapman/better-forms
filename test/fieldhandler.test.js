@@ -32,7 +32,7 @@ describe('FieldHandler:', sandbox(function () {
 
     beforeEach(function () {
         instance = new Form('aForm', {
-            firstName: new Fields.string({ label: 'Foo', required: true }),
+            firstName: new Fields.string({ label: 'Foo', required: true, placeholder: 'First name' }),
             lastName: new Fields.string({ label: 'Bar', required: true }),
             age: new Fields.number({ label: 'Baz' }),
             title: new Fields.select({ choices: [{ 'Mrs': 'mrs' }, { 'Mr': 'mr' }] })
@@ -91,7 +91,7 @@ describe('FieldHandler:', sandbox(function () {
 
     });
 
-    it('has a choices property on it, which retuns field.choices', function (next) {
+    it('has a choices property on it, which returns field.choices', function (next) {
 
         simpleRequest(function (req, res, callback) {
             instance.setupFormHandler(req, res, function () {
@@ -108,6 +108,22 @@ describe('FieldHandler:', sandbox(function () {
 
     });
 
+    it('has a placeholder property on it, which returns field.placeholder', function (next) {
+
+        simpleRequest(function (req, res, callback) {
+            instance.setupFormHandler(req, res, function () {
+
+                var fieldInstance = instance.fields.firstName,
+                    fieldHandler = req.forms.aForm.fields.firstName;
+
+                fieldHandler.placeholder
+                    .should.equal(fieldInstance.placeholder);
+
+                callback();
+            }, null, values);
+        }, next);
+
+    });
 
     it('has id, tagName, availableAttributes and type properties, of their respective properties', function (next) {
 

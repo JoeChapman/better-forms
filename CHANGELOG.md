@@ -67,5 +67,5 @@ Features:
 
 Features:
 
-- New fieldHandler helpers for errorText, labelText, widgetAttributes & choices
+- New fieldHandler helpers for errorText, labelText, widgetAttributes, choices & placeholder
 - Removed fieldHandler.validationErrors, replaced with errorText
