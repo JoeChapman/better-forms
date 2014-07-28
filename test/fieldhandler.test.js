@@ -17,6 +17,8 @@ describe('FieldHandler:', sandbox(function () {
         this.spy(Field.prototype, 'widgetHtml');
         this.spy(Field.prototype, 'labelHtml');
         this.spy(Field.prototype, 'errorHtml');
+        this.spy(Field.prototype, 'labelText');
+        this.spy(Field.prototype, 'widgetAttributes');
     });
 
     after(function () {
@@ -24,13 +26,16 @@ describe('FieldHandler:', sandbox(function () {
         Field.prototype.widgetHtml.restore();
         Field.prototype.labelHtml.restore();
         Field.prototype.errorHtml.restore();
+        Field.prototype.labelText.restore();
+        Field.prototype.widgetAttributes.restore();
     });
 
     beforeEach(function () {
         instance = new Form('aForm', {
-            firstName: new Fields.string({ label: 'Foo', required: true }),
+            firstName: new Fields.string({ label: 'Foo', required: true, placeholder: 'First name' }),
             lastName: new Fields.string({ label: 'Bar', required: true }),
-            age: new Fields.number({ label: 'Baz' })
+            age: new Fields.number({ label: 'Baz' }),
+            title: new Fields.select({ choices: [{ 'Mrs': 'mrs' }, { 'Mr': 'mr' }] })
         }, {
             template: 'form.test.jade'
         });
@@ -58,7 +63,7 @@ describe('FieldHandler:', sandbox(function () {
         };
     });
 
-    it('has valid and validationErrors properties on it, which call validate(values)', function (next) {
+    it('has errorText and valid properties on it, which call validate(values)', function (next) {
 
         this.spy(Field.prototype, 'validate');
         values.firstName = '';
@@ -77,7 +82,7 @@ describe('FieldHandler:', sandbox(function () {
 
                 fieldInstance.validate.reset();
 
-                fieldHandler.validationErrors
+                fieldHandler.errorText
                     .should.deep.equal(fieldInstance.validate(values.firstName));
 
                 callback();
@@ -86,6 +91,39 @@ describe('FieldHandler:', sandbox(function () {
 
     });
 
+    it('has a choices property on it, which returns field.choices', function (next) {
+
+        simpleRequest(function (req, res, callback) {
+            instance.setupFormHandler(req, res, function () {
+
+                var fieldInstance = instance.fields.title,
+                    fieldHandler = req.forms.aForm.fields.title;
+
+                fieldHandler.choices
+                    .should.equal(fieldInstance.choices);
+
+                callback();
+            }, null, values);
+        }, next);
+
+    });
+
+    it('has a placeholder property on it, which returns field.placeholder', function (next) {
+
+        simpleRequest(function (req, res, callback) {
+            instance.setupFormHandler(req, res, function () {
+
+                var fieldInstance = instance.fields.firstName,
+                    fieldHandler = req.forms.aForm.fields.firstName;
+
+                fieldHandler.placeholder
+                    .should.equal(fieldInstance.placeholder);
+
+                callback();
+            }, null, values);
+        }, next);
+
+    });
 
     it('has id, tagName, availableAttributes and type properties, of their respective properties', function (next) {
 
@@ -153,6 +191,38 @@ describe('FieldHandler:', sandbox(function () {
 
                 fieldInstance.html
                     .should.have.been.calledWithExactly(values.firstName, options, fields);
+
+                callback();
+            }, null, values, options);
+        }, next);
+
+    });
+
+    it('has labelText, widgetAttributes properties, which call their respective form methods', function (next) {
+
+        values.firstName = '';
+        var options = {};
+
+        simpleRequest(function (req, res, callback) {
+            instance.setupFormHandler(req, res, function () {
+
+                var fieldInstance = instance.fields.firstName,
+                    fieldHandler = req.forms.aForm.fields.firstName,
+                    fields = {firstName: {}, lastName: {}, age: {}};
+
+                fieldInstance.fields = fields;
+
+                fieldHandler.labelText
+                    .should.equal(fieldInstance.labelText(values.firstName, options));
+
+                fieldInstance.labelText
+                    .should.always.have.been.calledWithExactly(values.firstName, options);
+
+                fieldHandler.widgetAttributes
+                    .should.deep.equal(fieldInstance.widgetAttributes(values.firstName, options));
+
+                fieldInstance.widgetAttributes
+                    .should.have.been.calledWith(values.firstName, options);
 
                 callback();
             }, null, values, options);
