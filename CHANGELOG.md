@@ -76,3 +76,4 @@ Features:
 Features:
 
 - New fieldHandler helpers error - returns error key such as 'valueMissing', 'typeMismatch'
+- Exposed field and error Classes
