@@ -277,6 +277,68 @@ describe('Field:', sandbox(function () {
 
         });
 
+        describe('.getError()', function () {
+
+            beforeEach(function () {
+                instance = new Field({ value: 'x' });
+            });
+
+            it('will return null if the field is valid', function () {
+
+                should.equal(instance.validate(), null);
+
+            });
+
+            it('will return valueMissing if the field has no value', function () {
+
+                instance.required = true;
+
+                instance.getError('', {}, {})
+                    .should.equal('valueMissing');
+
+            });
+
+            it('will return tooShort if the field value is shorter than minlength', function () {
+
+                instance.minlength = 6;
+
+                instance.getError('12345', {}, {})
+                    .should.equal('tooShort');
+
+            });
+
+            it('will return tooLong if the field value is longer than maxlength', function () {
+
+                instance.maxlength = 6;
+
+                instance.getError('1234567', {}, {})
+                    .should.equal('tooLong');
+
+            });
+
+            it('will return patternMismatch if the field value does not pass the pattern test', function () {
+
+                instance.pattern = /^[^0-9()]+$/;
+
+                instance.getError('1234567', {}, {})
+                    .should.equal('patternMismatch');
+
+            });
+
+            it('will return noMatch if the field value is not the same as the match field value', function () {
+
+                var other = new Field({ value: 'x' });
+                other.value = 'foo';
+
+                instance.match = 'other';
+
+                instance.getError('bar', {}, { other: other })
+                    .should.equal('noMatch');
+
+            });
+
+        });
+
         describe('.validate()', function () {
 
             beforeEach(function () {

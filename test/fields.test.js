@@ -148,6 +148,17 @@ describe('Fields:', sandbox(function () {
 
         });
 
+        describe('.getError()', function () {
+
+            it('will return typeMistch if the value is not a valid email address', function () {
+
+                instance.getError('aaaa', {}, {})
+                    .should.equal('typeMismatch');
+
+            });
+
+        });
+
 
     });
 

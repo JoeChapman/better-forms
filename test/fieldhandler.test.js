@@ -91,6 +91,34 @@ describe('FieldHandler:', sandbox(function () {
 
     });
 
+    it('has error property on it, which calls getError', function (next) {
+
+        this.spy(Field.prototype, 'getError');
+        values.firstName = '';
+
+        simpleRequest(function (req, res, callback) {
+            instance.setupFormHandler(req, res, function () {
+
+                var fieldInstance = instance.fields.firstName,
+                    fieldHandler = req.forms.aForm.fields.firstName;
+
+                fieldHandler.error
+                    .should.equal('valueMissing');
+
+                fieldInstance.getError
+                    .should.always.have.been.calledWith(values.firstName);
+
+                fieldInstance.getError.reset();
+
+                fieldHandler.error
+                    .should.deep.equal(fieldInstance.getError(values.firstName));
+
+                callback();
+            }, null, values);
+        }, next);
+
+    });
+
     it('has a choices property on it, which returns field.choices', function (next) {
 
         simpleRequest(function (req, res, callback) {
