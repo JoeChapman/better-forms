@@ -69,3 +69,11 @@ Features:
 
 - New fieldHandler helpers for errorText, labelText, widgetAttributes, choices & placeholder
 - Removed fieldHandler.validationErrors, replaced with errorText
+
+0.0.11 (31.07.2014)
+==================
+
+Features:
+
+- New fieldHandler helpers error - returns error key such as 'valueMissing', 'typeMismatch'
+- Exposed field and error Classes
