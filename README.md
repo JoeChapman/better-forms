@@ -13,7 +13,7 @@ Use Better Forms to create your form, securely handle requests, validate form da
 Build a form, giving it a name and fields. [More examples](https://github.com/JoeChapman/better-forms/blob/master/DOCUMENTATION.md)
 
 ```js
-var forms = require('forms');
+var forms = require('better-forms');
 
 module.exports = forms('simpleform', {
     fname: new forms.fields.string({label: 'First name', required: true}),
