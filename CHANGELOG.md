@@ -77,3 +77,10 @@ Features:
 
 - New fieldHandler helpers error - returns error key such as 'valueMissing', 'typeMismatch'
 - Exposed field and error Classes
+
+0.0.12 (01.08.2014)
+==================
+
+- XHR redirects returned as JSON object (@mattyod)
+- Updated dependencies (@mattyod)
+- Refactored out deprecated methods after dependency update (@mattyod)
