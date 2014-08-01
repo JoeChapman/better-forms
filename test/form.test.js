@@ -1435,6 +1435,46 @@ describe('Form:', sandbox(function () {
 
             });
 
+            describe('default postHandler with redirectUrl', function () {
+
+                beforeEach(function () {
+                    instance = new Form('aForm', {
+                        firstName: new Fields.string({ required: true }),
+                        lastName: new Fields.string({ required: true }),
+                        age: new Fields.number()
+                    }, {
+                        redirectUrl: '/foo',
+                        id: 'foo',
+                        template: 'form.test.jade',
+                        setValues: this.stub().callsArg(2),
+                        getValues: function (req, res, callback) {
+                            callback(null, { firstName: 'FooFoo', lastName: 'BarBar', age: '0' });
+                        }
+                    });
+
+                    app.post('/form', instance.requestHandler);
+                });
+
+                it('Responds as JSON to an XHR request with the redirect url to follow', function (next) {
+                    instance.redirectUrl = '/foo';
+
+                    request(app)
+                        .post('/form')
+                        .set('X-Requested-With', 'XMLHttpRequest')
+                        .send({ firstName: 'Foo', lastName: 'Bar', age: '' })
+                        .end(function (err, res) {
+
+                            res.statusCode
+                                .should.equal(200);
+
+                            res.body
+                                .should.deep.equal({ redirect: '/foo' });
+
+                            next();
+                        });
+                });
+            });
+
         });
 
     });
