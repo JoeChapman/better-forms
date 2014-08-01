@@ -565,7 +565,7 @@ describe('Form:', sandbox(function () {
                     var req = request(app[method || 'get']('/form', function (req, res) {
                         req.session.forms = req.session.forms || {};
                         try {
-                            cb(req, res, function () { res.send(200); });
+                            cb(req, res, function () { res.status(200).end(); });
                         } catch (e) {
                             next(e);
                         }
@@ -1023,7 +1023,7 @@ describe('Form:', sandbox(function () {
                         next
                             .should.be.a('function');
 
-                        res.send(200);
+                        res.status(200).end();
                     });
 
                     request(app.get('/form', instance.requestHandler)).get('/form').end(next);
@@ -1048,7 +1048,7 @@ describe('Form:', sandbox(function () {
                         next
                             .should.be.a('function');
 
-                        res.send(200);
+                        res.status(200).end();
                     });
 
                     request(app.post('/form', instance.requestHandler)).post('/form').end(next);
@@ -1120,7 +1120,7 @@ describe('Form:', sandbox(function () {
                     });
                     app.use(function (err, req, res, next) {
                         if (err) {
-                            res.send(500, err);
+                            res.status(500).send(err);
                         } else {
                             next();
                         }
@@ -1415,7 +1415,7 @@ describe('Form:', sandbox(function () {
                     });
                     app.use(function (err, req, res, next) {
                         if (err) {
-                            res.send(500, err);
+                            res.status(500).send(err);
                         } else {
                             next();
                         }

@@ -51,7 +51,7 @@ describe('FieldHandler:', sandbox(function () {
             var req = request(app[method || 'get']('/form', function (req, res) {
                 req.session.forms = req.session.forms || {};
                 try {
-                    cb(req, res, function () { res.send(200); });
+                    cb(req, res, function () { res.status(200).end(); });
                 } catch (e) {
                     next(e);
                 }
