@@ -45,7 +45,11 @@ describe('FieldHandler:', sandbox(function () {
         app.set('view engine', 'jade');
         app.use(require('body-parser').json({extended: true}));
         app.use(require('cookie-parser')('a'));
-        app.use(require('express-session')({ secret: 'a' }));
+        app.use(require('express-session')({
+            saveUninitialized: true,
+            resave: true,
+            secret: 'a'
+        }));
         // Simple wrapper for mocking request objects.
         simpleRequest = function (cb, next, method, values, options) {
             var req = request(app[method || 'get']('/form', function (req, res) {
