@@ -32,7 +32,12 @@ describe('FieldHandler:', sandbox(function () {
 
     beforeEach(function () {
         instance = new Form('aForm', {
-            firstName: new Fields.string({ label: 'Foo', required: true, placeholder: 'First name' }),
+            firstName: new Fields.string({
+                label: 'Foo',
+                required: true,
+                placeholder: 'First name',
+                custom: function () { return 'foo'}
+            }),
             lastName: new Fields.string({ label: 'Bar', required: true }),
             age: new Fields.number({ label: 'Baz' }),
             title: new Fields.select({ choices: [{ 'Mrs': 'mrs' }, { 'Mr': 'mr' }] })
@@ -261,4 +266,22 @@ describe('FieldHandler:', sandbox(function () {
         }, next);
 
     });
+
+    it('has a custom property which calls a custom handler if it exists', function (next) {
+
+        simpleRequest(function (req, res, callback) {
+            instance.setupFormHandler(req, res, function () {
+
+                var fieldInstance = instance.fields.firstName,
+                    fieldHandler = req.forms.aForm.fields.firstName;
+
+                fieldHandler.custom
+                    .should.equal('foo');
+
+                callback();
+            }, null, values);
+        }, next);
+
+    });
+
 }));
