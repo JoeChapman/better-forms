@@ -353,8 +353,8 @@ describe('Field:', sandbox(function () {
 
             it('will return null if the field has validateif option referring to a field that has no value', function () {
 
+                instance = new Field({ value: 'x', validateif: 'password' });
                 var password = new Field({ id: 'password', value: '' });
-                instance.validateif = 'password';
 
                 instance.required = true;
 
@@ -504,13 +504,136 @@ describe('Field:', sandbox(function () {
 
         });
 
+        describe('.validationReady()', function () {
+
+            it('returns true if no validateif values', function () {
+                var fields = {
+                    password: new Field({ id: 'password', value: '' })
+                };
+
+                instance = new Field({ value: 'x' });
+
+                instance.validationReady(fields)
+                    .should.equal(true);
+            });
+
+            it('returns true if validateif value is truthy', function () {
+                var fields = {
+                    password: new Field({ id: 'password', value: 'secret' })
+                };
+
+                instance = new Field({ value: 'x', validateif: 'password' });
+
+                instance.validationReady(fields)
+                    .should.equal(true);
+            });
+
+            it('returns false if validateif value is falsey', function () {
+                var fields = {
+                    password: new Field({ id: 'password', value: '' })
+                };
+
+                instance = new Field({ value: 'x', validateif: 'password' });
+
+                should.equal(instance.validationReady(fields), false);
+
+            });
+
+            it('returns false if validateif id starts with ! and value is falsey', function () {
+                var fields = {
+                    password: new Field({ id: 'password', value: 'secret' })
+                };
+
+                instance = new Field({ value: 'x', validateif: '!password' });
+
+                should.equal(instance.validationReady(fields), false);
+            });
+
+            it('returns true if validateif id starts with ! and value is truthy', function () {
+                var fields = {
+                    password: new Field({ id: 'password', value: '' })
+                };
+
+                instance = new Field({ value: 'x', validateif: '!password' });
+
+                instance.validationReady(fields)
+                    .should.equal(true);
+
+            });
+
+            it('returns true if either validateif value is truthy', function () {
+                var fields = {
+                    password: new Field({ id: 'password', value: '' }),
+                    lname: new Field({ id: 'lname', value: 'Foo' })
+                };
+
+                instance = new Field({ value: 'x', validateif: 'password, lname' });
+
+                instance.validationReady(fields)
+                    .should.equal(true);
+
+            });
+
+            it('returns true if both validateif values are truthy', function () {
+                var fields = {
+                    password: new Field({ id: 'password', value: 'secret' }),
+                    lname: new Field({ id: 'lname', value: 'Foo' })
+                };
+
+                instance = new Field({ value: 'x', validateif: 'password, lname' });
+
+                instance.validationReady(fields)
+                    .should.equal(true);
+
+            });
+
+            it('returns false if both validateif values are falsey', function () {
+                var fields = {
+                    password: new Field({ id: 'password', value: '' }),
+                    lname: new Field({ id: 'lname', value: '' })
+                };
+
+                instance = new Field({ value: 'x', validateif: 'password, lname' });
+
+                should.equal(instance.validationReady(fields), false);
+
+            });
+
+            it('returns false if either validateif value is falsey when "&" in values', function () {
+                var fields = {
+                    password: new Field({ id: 'password', value: '' }),
+                    lname: new Field({ id: 'lname', value: 'Foo' })
+                };
+
+                instance = new Field({ value: 'x', validateif: 'password, lname, &' });
+
+                should.equal(instance.validationReady(fields), false);
+
+            });
+
+            it('returns true if both validateif values are truthy when "&" in values', function () {
+                var fields = {
+                    password: new Field({ id: 'password', value: 'secret' }),
+                    lname: new Field({ id: 'lname', value: 'Foo' })
+                };
+
+                instance = new Field({ value: 'x', validateif: 'password, lname, &' });
+
+                instance.validationReady(fields)
+                    .should.equal(true);
+
+            });
+
+        });
+
         describe('.getMessage()', function () {
 
             it('returns this.message if it is a string', function () {
 
                 instance.message = 'message string';
 
-                instance.getMessage().should.equal('message string');
+                instance.getMessage()
+                    .should.equal('message string');
 
             });
 
@@ -520,7 +643,8 @@ describe('Field:', sandbox(function () {
                     msgType: 'message object'
                 };
 
-                instance.getMessage('msgType').should.equal('message object');
+                instance.getMessage('msgType')
+                    .should.equal('message object');
 
             });
 
@@ -532,8 +656,11 @@ describe('Field:', sandbox(function () {
 
                 this.spy(instance, 'message');
 
-                instance.getMessage('msgType').should.equal('message function');
-                instance.message.should.have.been.calledWith('msgType');
+                instance.getMessage('msgType')
+                    .should.equal('message function');
+
+                instance.message
+                    .should.have.been.calledWith('msgType');
 
             });
 
