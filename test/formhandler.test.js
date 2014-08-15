@@ -73,7 +73,7 @@ describe('FormHandler object', function () {
 
     });
 
-    it('has valid and validationErrors properties on it, which call validate(values)', function (next) {
+    it('has valid and validationErrors properties on it, which call validate(values) if errors is false', function (next) {
 
         this.spy(instance, 'validate');
         values.firstName = '';
@@ -98,6 +98,30 @@ describe('FormHandler object', function () {
 
     });
 
+    it('valid and validationErrors properties do not call validate(values) if errors is not false', function (next) {
+
+        this.spy(instance, 'validate');
+        values.firstName = '';
+
+
+        simpleRequest(function (req, res, callback) {
+            instance.setupFormHandler(req, res, function () {
+
+                req.forms.aForm.errors = true;
+
+                req.forms.aForm.valid
+                    .should.equal(false);
+
+                instance.validate
+                    .should.not.have.been.calledWith(values);
+
+                instance.validate.reset();
+
+                callback();
+            }, null, values);
+        }, next);
+
+    });
 
     it('has html and buttonsHtml properties, which call their respective form methods', function (next) {
 

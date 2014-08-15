@@ -84,3 +84,10 @@ Features:
 - XHR redirects returned as JSON object (@mattyod)
 - Updated dependencies (@mattyod)
 - Refactored out deprecated methods after dependency update (@mattyod)
+
+0.0.13 (15.08.2014)
+==================
+
+- validateif values can be tested with either AND and OR logic
+- validateif id references can force their respective values to be tested for the inverse quality with '!'
+- bugfix: Form.validate called only when necessary, not twice as in post handling.

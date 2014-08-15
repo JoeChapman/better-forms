@@ -14,6 +14,60 @@ required, selectiondirection, autocomplete, inputmode, list, minlength, maxlengt
 readonly, placeholder, pattern, step, match, validateif, name, checked
 ```
 
+### Special attributes
+
+`match`: takes a string reference to the id of another field. A field with a match
+attribute and value will only pass validation if its value matches that of the field referenced.
+```
+new forms.fields.password({
+    id: 'password',
+    required: true
+});
+
+new forms.fields.password({
+    id: 'confirm',
+    match: 'password'
+    required: true
+});
+```
+
+`validateif`: takes a string or array of strings that are treated as references to the ids of other fields.
+A field with a validateif id reference will only be validated if the value of the referenced field is truthy*
+*Unless the reference is prepended with '!' (exclamation), in which case, the inverse is true.
+By default a field is validated if any referenced 'validateif' field has a truthy value unless a '&' (ampersand) is supplied.
+
+Confirm password field will be validated if password has a truthy value.
+```
+new forms.fields.password({
+    id: 'password',
+    required: true
+});
+
+new forms.fields.password({
+    id: 'confirm',
+    validateif: 'password'
+    required: true
+});
+```
+
+Confirm password field will be validated if password has a truthy value and fname has a falsey value.
+```
+new forms.fields.string({
+    id: 'fname',
+    required: true
+});
+new forms.fields.password({
+    id: 'password',
+    required: true
+});
+
+new forms.fields.password({
+    id: 'confirm',
+    validateif: 'password, !fname, &'
+    required: true
+});
+```
+
 ### Example Field usage
 Assuming Better Forms is installed and imported in the project with;
 ```
