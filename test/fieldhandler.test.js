@@ -35,8 +35,7 @@ describe('FieldHandler:', sandbox(function () {
             firstName: new Fields.string({
                 label: 'Foo',
                 required: true,
-                placeholder: 'First name',
-                custom: function () { return 'foo'}
+                placeholder: 'First name'
             }),
             lastName: new Fields.string({ label: 'Bar', required: true }),
             age: new Fields.number({ label: 'Baz' }),
@@ -267,21 +266,54 @@ describe('FieldHandler:', sandbox(function () {
 
     });
 
-    it('has a custom property which calls a custom handler if it exists', function (next) {
+    describe('custom getter', function () {
 
-        simpleRequest(function (req, res, callback) {
-            instance.setupFormHandler(req, res, function () {
+        describe('when not set', function () {
 
-                var fieldInstance = instance.fields.firstName,
-                    fieldHandler = req.forms.aForm.fields.firstName;
+            it('returns undefined', function (next) {
 
-                fieldHandler.custom
-                    .should.equal('foo');
+                simpleRequest(function (req, res, callback) {
+                    instance.setupFormHandler(req, res, function () {
 
-                callback();
-            }, null, values);
-        }, next);
+                        var fieldInstance = instance.fields.firstName,
+                            fieldHandler = req.forms.aForm.fields.firstName;
 
+                        (typeof fieldHandler.custom)
+                            should.equal(undefined);
+
+                        callback();
+                    }, null, values);
+                }, next);
+
+            });
+
+        });
+
+        describe('when set', function () {
+
+            beforeEach(function () {
+                instance.fields.firstName.custom = function () { return 'foo'; };
+            });
+
+            it('has a custom property which calls a custom handler if it exists', function (next) {
+
+                simpleRequest(function (req, res, callback) {
+                    instance.setupFormHandler(req, res, function () {
+
+                        var fieldInstance = instance.fields.firstName,
+                            fieldHandler = req.forms.aForm.fields.firstName;
+
+                        fieldHandler.custom
+                            .should.equal('foo');
+
+                        callback();
+                    }, null, values);
+                }, next);
+
+            });
+
+        });
     });
+
 
 }));
