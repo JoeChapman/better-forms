@@ -590,37 +590,6 @@ describe('Form:', sandbox(function () {
                     options = {};
                 });
 
-                it('adds _csrf field to instance.fields on GET requests if values._csrf is defined', function (next) {
-
-                    var values = {};
-                    values._csrf = '123';
-
-                    simpleRequest(function (req, res, callback) {
-                        instance.setupFormHandler(req, res, function () {
-
-                            req.forms.aForm
-                                .should.be.an('object');
-
-                            req.forms.aForm.values._csrf
-                                .should.equal('123');
-
-                            req.forms.aForm.fields._csrf.type
-                                .should.equal('hidden');
-
-                            req.forms.aForm.fields._csrf.id
-                                .should.equal('_csrf');
-
-                            arguments[0]
-                                .should.equal(req);
-
-                            arguments[1]
-                                .should.equal(res);
-
-                            callback();
-                        }, null, values);
-                    }, next, 'get');
-                });
-
                 it('injects req.forms[formName] as a FormHandler into request object', function (next) {
 
                     simpleRequest(function (req, res, callback) {
@@ -763,6 +732,40 @@ describe('Form:', sandbox(function () {
                         });
                     }, next );
 
+                });
+
+                it('adds _csrf field to instance.fields if res.locals._csrf is defined', function (next) {
+
+                    simpleRequest(function (req, res, callback) {
+                        res.locals = {
+                            _csrf: '123'
+                        };
+                        instance.retrieve(req, res, function () {
+
+                            instance.setupFormHandler
+                                .should.have.been.called;
+
+                            req.forms.aForm
+                                .should.equal(formHandler);
+
+                            req.forms.aForm.values._csrf
+                                .should.equal('123');
+
+                            instance.fields._csrf.type
+                                .should.equal('hidden');
+
+                            instance.fields._csrf.id
+                                .should.equal('_csrf');
+
+                            arguments[0]
+                                .should.equal(req);
+
+                            arguments[1]
+                                .should.equal(res);
+
+                            callback();
+                        });
+                    }, next);
                 });
 
                 it('retrieves values from the getValues method in forms', function (next) {
