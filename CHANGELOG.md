@@ -91,3 +91,8 @@ Features:
 - validateif values can be tested with either AND and OR logic
 - validateif id references can force their respective values to be tested for the inverse quality with '!'
 - bugfix: Form.validate called only when necessary, not twice as in post handling.
+
+0.0.15 (22.08.2014)
+==================
+
+- fixed bug in way _csrf field was created.
