@@ -1008,6 +1008,26 @@ describe('Form:', sandbox(function () {
                     }, next, 'post', { percent: 50 });
                 });
 
+                it('responds with the redirectUrl from the session', function (next) {
+
+                    simpleRequest(function (req, res, callback) {
+
+                        req.session.redirectUrl = '/bar';
+
+                        instance.requestHandler(req, res, function () {
+                            res.statusCode
+                                .should.equal(200);
+
+                            res.body
+                                .should.deep.equal({ redirect: '/bar' });
+
+                            callback();
+                        });
+
+                    }, next, 'post');
+                });
+
+
             });
 
             describe('.requestHandler()', function () {
@@ -1479,6 +1499,7 @@ describe('Form:', sandbox(function () {
                             next();
                         });
                 });
+
             });
 
         });
