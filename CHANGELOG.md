@@ -96,3 +96,8 @@ Features:
 ==================
 
 - fixed bug in way _csrf field was created.
+
+0.2.0 (28.08.2014)
+==================
+
+- Dynamic redirectUrl feature; add redirectUrl to session to redirect to on successful post.
