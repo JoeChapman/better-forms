@@ -275,11 +275,9 @@ describe('FieldHandler:', sandbox(function () {
                 simpleRequest(function (req, res, callback) {
                     instance.setupFormHandler(req, res, function () {
 
-                        var fieldInstance = instance.fields.firstName,
-                            fieldHandler = req.forms.aForm.fields.firstName;
+                        var fieldHandler = req.forms.aForm.fields.firstName;
 
-                        (typeof fieldHandler.custom)
-                            should.equal(undefined);
+                        should.equal(fieldHandler.custom, undefined);
 
                         callback();
                     }, null, values);
@@ -291,8 +289,10 @@ describe('FieldHandler:', sandbox(function () {
 
         describe('when set', function () {
 
+            var options = {};
+
             beforeEach(function () {
-                instance.fields.firstName.custom = function () { return 'foo'; };
+                instance.fields.firstName.custom = this.stub().returns('foo');
             });
 
             it('has a custom property which calls a custom handler if it exists', function (next) {
@@ -301,13 +301,16 @@ describe('FieldHandler:', sandbox(function () {
                     instance.setupFormHandler(req, res, function () {
 
                         var fieldInstance = instance.fields.firstName,
-                            fieldHandler = req.forms.aForm.fields.firstName;
+                            fieldHandler = req.forms.aForm.fields.firstName,
+                            fields = {firstName: {}, lastName: {}, age: {}};
+
+                        fieldInstance.fields = fields;
 
                         fieldHandler.custom
-                            .should.equal('foo');
+                            .should.deep.equal(fieldInstance.custom(values.firstName, options));
 
                         callback();
-                    }, null, values);
+                    }, null, values, options);
                 }, next);
 
             });
