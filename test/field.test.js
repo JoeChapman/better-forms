@@ -277,6 +277,20 @@ describe('Field:', sandbox(function () {
 
         });
 
+        describe('.escapeValue()', function () {
+
+            it('escapes double quotes', function () {
+                instance.escapeValue('asd"asd"asd')
+                    .should.equal('asd&quot;asd&quot;asd');
+            });
+
+            it('escapes single quotes', function () {
+                instance.escapeValue("asd'asd'asd")
+                    .should.equal('asd&apos;asd&apos;asd');
+            });
+
+        });
+
         describe('.getError()', function () {
 
             beforeEach(function () {
