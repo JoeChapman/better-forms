@@ -101,3 +101,9 @@ Features:
 ==================
 
 - Dynamic redirectUrl feature; add redirectUrl to session to redirect to on successful post.
+
+0.2.1 (01.09.2014)
+==================
+
+- added escapeValue method to field.js, catches single and double quotes before
+writing back to template.
