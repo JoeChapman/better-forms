@@ -1245,7 +1245,8 @@ describe('Form:', sandbox(function () {
                     this.spy(instance.options, 'successHandler');
                     this.stub(instance.options, 'errorHandler').callsArg(3);
 
-                    request(app).post('/form')
+                    request(app)
+                        .post('/form')
                         .send({ firstName: 'Foo', lastName: '', age: '' })
                         .end(function () {
 
@@ -1271,6 +1272,7 @@ describe('Form:', sandbox(function () {
 
                 });
 
+
                 it('calls errorHandler if setValues calls back with an error', function (next) {
 
                     this.spy(instance.options, 'successHandler');
@@ -1287,7 +1289,7 @@ describe('Form:', sandbox(function () {
 
                     request(app).post('/form')
                         .send({ firstName: 'Foo', lastName: 'Bar', age: '' })
-                        .end(function () {
+                        .end(function (err) {
 
                             instance.options.errorHandler
                                 .should.have.been.calledOnce;
@@ -1303,7 +1305,22 @@ describe('Form:', sandbox(function () {
                             instance.options.successHandler
                                 .should.not.have.been.called;
 
-                            next();
+                            next(err);
+                        });
+
+                });
+
+                it('responds with a 403 statusCode if the form is invalid', function (next) {
+
+                    request(app)
+                        .post('/form')
+                        .send({ firstName: '', lastName: 'Bar', age: '' })
+                        .end(function (err, res) {
+
+                            res.statusCode
+                                .should.equal(403);
+
+                            next(err);
                         });
 
                 });
