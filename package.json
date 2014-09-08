@@ -14,7 +14,8 @@
   },
   "scripts": {
     "test": "mocha test/",
-    "lint": "[ -z \"$LINTFILES\" ] && LINTFILES='**'; jshint ${LINTFILES}"
+    "lint": "[ -z \"$LINTFILES\" ] && LINTFILES='**'; jshint ${LINTFILES}",
+    "hooks": "chmod +x hooks/*; cd .git/hooks && ln -sf ../../hooks/* ."
   },
   "contributors": [
       "Joe Chapman <info@josephchapman.com>",
