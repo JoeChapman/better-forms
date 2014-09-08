@@ -1499,7 +1499,7 @@ describe('Form:', sandbox(function () {
                 });
 
                 it('Responds as JSON to an XHR request with the redirect url to follow', function (next) {
-                    instance.redirectUrl = '/foo';
+                    instance.options.redirectUrl = '/foo';
 
                     request(app)
                         .post('/form')
