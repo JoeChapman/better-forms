@@ -107,3 +107,9 @@ Features:
 
 - added escapeValue method to field.js, catches single and double quotes before
 writing back to template.
+
+0.2.2 (10.09.14)
+================
+
+- Show error messge by setting new Form.error in setValues callback.
+- Allow api errors to be propogated thru to form error handler, even if formHandler.valid is true
