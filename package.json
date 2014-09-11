@@ -8,7 +8,7 @@
     "express",
     "fields"
   ],
-  "version": "0.2.2",
+  "version": "0.2.3",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -30,22 +30,21 @@
     "url": "https://github.com/joechapman/better-forms.git"
   },
   "dependencies": {
-    "underscore": "1.6.0",
+    "underscore": "1.7.0",
     "kayclass": "0.1.0"
   },
   "devDependencies": {
     "sinon": "1.10.3",
     "chai": "1.9.1",
-    "mocha": "1.21.3",
+    "mocha": "1.21.4",
     "sinon-chai": "2.5.0",
     "chai-jquery": "1.2.3",
     "chai-as-promised": "4.1.1",
-    "mocha-as-promised": "2.0.0",
-    "express": "4.7.2",
+    "express": "4.9.0",
     "supertest": "0.13.0",
-    "body-parser": "1.5.2",
-    "cookie-parser": "1.3.2",
-    "express-session": "1.7.2",
-    "jade": "1.5.0"
+    "body-parser": "1.8.1",
+    "cookie-parser": "1.3.3",
+    "express-session": "1.8.1",
+    "jade": "1.6.0"
   }
 }

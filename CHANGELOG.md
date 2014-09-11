@@ -113,3 +113,8 @@ writing back to template.
 
 - Show error messge by setting new Form.error in setValues callback.
 - Allow api errors to be propogated thru to form error handler, even if formHandler.valid is true
+
+0.2.3 (11.09.14)
+================
+
+- Update dependencies.
