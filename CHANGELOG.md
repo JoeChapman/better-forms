@@ -123,3 +123,9 @@ writing back to template.
 ================
 
 - put req.forms[this.formName] in method on form so can be overwritten. Useful for returning different values when error handling
+
+0.2.4 (15.09.14)
+================
+
+- getForm removed
+- getFormObject, accepts error and request, conditional logic can be applied
