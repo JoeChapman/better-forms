@@ -129,3 +129,9 @@ writing back to template.
 
 - getForm removed
 - getFormObject, accepts error and request, conditional logic can be applied
+
+0.2.5 (25.09.14)
+================
+
+- formHandler attributes returns formAttributes
+- new form attributes allowed; 'autocomplete', 'enctype', 'accept-charset'

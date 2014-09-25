@@ -359,9 +359,11 @@ describe('Form:', sandbox(function () {
                 instance.options.method = 'GET';
                 instance.options.action = '/?foo=bar';
                 instance.options.role = undefined;
+                instance.options.novalidate = true;
+                instance.options.autocomplete = 'off';
 
                 instance.html()
-                    .should.equal('<form method="GET" action="/?foo=bar" class="class1 class2" id="id">' +
+                    .should.equal('<form method="GET" action="/?foo=bar" id="id" class="class1 class2" novalidate="true" autocomplete="off">' +
                         '<errorHtml>' +
                         '<div class="field" data-type="text"><field:firstName value=""/></div>' +
                         '<div class="field" data-type="text"><field:lastName value=""/></div>' +
