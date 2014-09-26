@@ -157,6 +157,40 @@ describe('FormHandler object', function () {
 
     });
 
+    it('has an attributes property, which calls and returns formAttributes', function (next) {
+
+        this.spy(instance, 'formAttributes');
+        instance.options.method = 'get';
+        instance.options.novalidate = true;
+        instance.options.action = '/bar';
+        instance.options.id = 'baz';
+        instance.options.role = 'main';
+
+        simpleRequest(function (req, res, callback) {
+            instance.setupFormHandler(req, res, function () {
+
+                req.forms.aForm.attributes
+                    .should.eql(instance.formAttributes());
+
+                req.forms.aForm.attributes
+                    .should.eql({
+                        method: 'get',
+                        novalidate: true,
+                        action: '/bar',
+                        id: 'baz',
+                        role: 'main'
+                    });
+
+                instance.formAttributes
+                    .should.always.have.been.called;
+
+
+                callback();
+            }, null, values, options);
+        }, next);
+
+    });
+
     describe('fields property', function () {
 
         it('has a fields property which returns a list of FieldHandler objects', function (next) {

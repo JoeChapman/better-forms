@@ -159,6 +159,48 @@ describe('Fields:', sandbox(function () {
 
         });
 
+    });
+
+    describe('.hidden', function () {
+
+        beforeEach(function () {
+            instance = new fields.hidden({ id: '_csrf' });
+        });
+
+        it('has its own set of availableAttributes', function () {
+
+            instance.availableAttributes
+                .should.deep.equal([
+                    'disabled', 'form', 'formaction', 'formenctype', 'formmethod',
+                    'formnovalidate', 'formtarget', 'selectiondirection', 'value',
+                    'inputmode', 'list', 'readonly', 'name', 'aria-hidden'
+                ]);
+
+        });
+
+        describe('.html()', function () {
+
+            it('only renders input', function () {
+
+                this.stub(instance, 'widgetHtml', function () { return 'widgetHtml'; });
+
+                instance.html()
+                    .should.equal('widgetHtml');
+
+            });
+
+        });
+
+        describe('.widgetHtml()', function () {
+
+            it('adds checked attribute if value passed matches values attribute', function () {
+
+                instance.widgetHtml()
+                    .should.equal('<input type="hidden" aria-hidden="true" name="_csrf" id="_csrf"/>');
+
+            });
+
+        });
 
     });
 
@@ -236,7 +278,8 @@ describe('Fields:', sandbox(function () {
                     .should.deep.equal([
                         'autofocus', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod',
                         'formnovalidate', 'formtarget', 'required', 'selectiondirection', 'value',
-                        'autocomplete', 'inputmode', 'list', 'readonly', 'validateif', 'name', 'checked'
+                        'autocomplete', 'inputmode', 'list', 'readonly', 'validateif', 'name',
+                        'checked', 'role'
                     ]);
 
             });
@@ -261,7 +304,7 @@ describe('Fields:', sandbox(function () {
             it('adds checked attribute if value passed matches values attribute', function () {
 
                 instance.widgetHtml(true)
-                    .should.equal('<input type="checkbox" value="true" name="checkbox" id="checkbox" checked="checked"/>');
+                    .should.equal('<input type="checkbox" value="true" role="checkbox" name="checkbox" id="checkbox" checked="checked"/>');
 
             });
 
@@ -316,7 +359,8 @@ describe('Fields:', sandbox(function () {
                     .should.deep.equal([
                         'autofocus', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod',
                         'formnovalidate', 'formtarget', 'required', 'selectiondirection', 'value',
-                        'autocomplete', 'inputmode', 'list', 'readonly', 'validateif', 'name', 'checked'
+                        'autocomplete', 'inputmode', 'list', 'readonly', 'validateif', 'name',
+                        'checked', 'role'
                     ]);
 
             });
@@ -342,7 +386,7 @@ describe('Fields:', sandbox(function () {
             it('adds checked attribute if value passed matches values attribute', function () {
 
                 instance.widgetHtml('foo')
-                    .should.equal('<input type="radio" value="foo" name="radio" id="radio-foo" checked="checked"/>');
+                    .should.equal('<input type="radio" value="foo" name="radio" role="radio" id="radio-foo" checked="checked"/>');
 
             });
 
