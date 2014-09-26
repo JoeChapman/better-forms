@@ -132,3 +132,4 @@ writing back to template.
 - formHandler attributes returns formAttributes
 - new form attributes allowed; 'autocomplete', 'enctype', 'accept-charset'
 - radio and checkbox role attributes added as standard
+- hidden field have aria-hidden: true as standard

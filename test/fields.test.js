@@ -159,6 +159,48 @@ describe('Fields:', sandbox(function () {
 
         });
 
+    });
+
+    describe('.hidden', function () {
+
+        beforeEach(function () {
+            instance = new fields.hidden({ id: '_csrf' });
+        });
+
+        it('has its own set of availableAttributes', function () {
+
+            instance.availableAttributes
+                .should.deep.equal([
+                    'disabled', 'form', 'formaction', 'formenctype', 'formmethod',
+                    'formnovalidate', 'formtarget', 'selectiondirection', 'value',
+                    'inputmode', 'list', 'readonly', 'name', 'aria-hidden'
+                ]);
+
+        });
+
+        describe('.html()', function () {
+
+            it('only renders input', function () {
+
+                this.stub(instance, 'widgetHtml', function () { return 'widgetHtml'; });
+
+                instance.html()
+                    .should.equal('widgetHtml');
+
+            });
+
+        });
+
+        describe('.widgetHtml()', function () {
+
+            it('adds checked attribute if value passed matches values attribute', function () {
+
+                instance.widgetHtml()
+                    .should.equal('<input type="hidden" aria-hidden="true" name="_csrf" id="_csrf"/>');
+
+            });
+
+        });
 
     });
 
