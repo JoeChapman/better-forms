@@ -236,7 +236,8 @@ describe('Fields:', sandbox(function () {
                     .should.deep.equal([
                         'autofocus', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod',
                         'formnovalidate', 'formtarget', 'required', 'selectiondirection', 'value',
-                        'autocomplete', 'inputmode', 'list', 'readonly', 'validateif', 'name', 'checked'
+                        'autocomplete', 'inputmode', 'list', 'readonly', 'validateif', 'name',
+                        'checked', 'role'
                     ]);
 
             });
@@ -261,7 +262,7 @@ describe('Fields:', sandbox(function () {
             it('adds checked attribute if value passed matches values attribute', function () {
 
                 instance.widgetHtml(true)
-                    .should.equal('<input type="checkbox" value="true" name="checkbox" id="checkbox" checked="checked"/>');
+                    .should.equal('<input type="checkbox" value="true" role="checkbox" name="checkbox" id="checkbox" checked="checked"/>');
 
             });
 
@@ -316,7 +317,8 @@ describe('Fields:', sandbox(function () {
                     .should.deep.equal([
                         'autofocus', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod',
                         'formnovalidate', 'formtarget', 'required', 'selectiondirection', 'value',
-                        'autocomplete', 'inputmode', 'list', 'readonly', 'validateif', 'name', 'checked'
+                        'autocomplete', 'inputmode', 'list', 'readonly', 'validateif', 'name',
+                        'checked', 'role'
                     ]);
 
             });
@@ -342,7 +344,7 @@ describe('Fields:', sandbox(function () {
             it('adds checked attribute if value passed matches values attribute', function () {
 
                 instance.widgetHtml('foo')
-                    .should.equal('<input type="radio" value="foo" name="radio" id="radio-foo" checked="checked"/>');
+                    .should.equal('<input type="radio" value="foo" name="radio" role="radio" id="radio-foo" checked="checked"/>');
 
             });
 
