@@ -133,3 +133,10 @@ writing back to template.
 - new form attributes allowed; 'autocomplete', 'enctype', 'accept-charset'
 - radio and checkbox role attributes added as standard
 - hidden field have aria-hidden: true as standard
+
+0.2.6 (10.10.14)
+================
+
+- added preRedirect middleware so request values can be modified in successHandler before res.redirect
+    Useful for removing redirectUrl value
+- removed redirect method.
