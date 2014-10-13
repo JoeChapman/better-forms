@@ -1178,7 +1178,7 @@ describe('Form:', sandbox(function () {
                         id: 'foo',
                         template: 'form.test.jade',
                         setValues: this.stub().callsArg(2),
-                        preRedirect: this.stub().callsArg(2),
+                        predirect: this.stub().callsArg(2),
                         getValues: function (req, res, callback) {
                             callback(null, { firstName: 'FooFoo', lastName: 'BarBar', age: '0' });
                         }
@@ -1207,16 +1207,16 @@ describe('Form:', sandbox(function () {
                         });
                 });
 
-                it('calls preRedirect if the form is valid', function (next) {
+                it('calls predirect if the form is valid', function (next) {
 
                     request(app).post('/form')
                         .send({ firstName: 'Foo', lastName: 'Bar', age: '' })
                         .end(function (err) {
 
-                            instance.options.preRedirect
+                            instance.options.predirect
                                 .should.have.been.calledOnce;
 
-                            instance.options.preRedirect
+                            instance.options.predirect
                                 .should.have.been.calledWith(
                                     sinon.match.instanceOf(IncomingMessage),
                                     sinon.match.instanceOf(ServerResponse),
