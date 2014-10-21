@@ -140,3 +140,11 @@ writing back to template.
 - added preRedirect middleware so request values can be modified in successHandler before res.redirect
     Useful for removing redirectUrl value
 - removed redirect method.
+=======
+
+0.2.7 (15.10.14) v.0.2.6
+========================
+
+- dataMessages, .i.e., data-message-valuemissing='...' are switchable at form and field level.
+- fields are passed form options.
+

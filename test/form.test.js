@@ -18,14 +18,14 @@ describe('Form:', sandbox(function () {
 
         var fields = null, form;
 
-        describe('with fields', function () {
+        describe('with new field instances', function () {
 
             beforeEach(function () {
 
                 form = new Form('test');
 
                 fields = Form.prototype.createFields.call(form, {
-                    firstName: new Fields.string(),
+                    firstName: new Fields.string({ renderErrors: true }),
                     lastName: new Fields.string(),
                     age: new Fields.number({label: 'Test'})
                 });
@@ -37,6 +37,69 @@ describe('Form:', sandbox(function () {
                 fields.firstName.should.be.instanceof.Field;
                 fields.lastName.should.be.instanceof.Field;
                 fields.age.should.be.instanceof.Field;
+
+            });
+
+            it('ensures each field has form options', function () {
+
+                fields.firstName.options
+                    .should.eql(form.options);
+
+                fields.lastName.options
+                    .should.eql(form.options);
+
+                fields.age.options
+                    .should.eql(form.options);
+
+            });
+
+            it('ensures each field has a label generated from name if not provided', function () {
+
+                fields.firstName
+                    .label.should.equal('First name');
+
+                fields.lastName
+                    .label.should.equal('Last name');
+
+                fields.age
+                    .label.should.equal('Test');
+
+            });
+
+        });
+
+        describe('with field objects', function () {
+
+            beforeEach(function () {
+
+                form = new Form('test');
+
+                fields = Form.prototype.createFields.call(form, {
+                    firstName: { type: 'text', renderErrors: true },
+                    lastName: { type: 'text' },
+                    age: { type: 'number', label: 'Test'}
+                });
+
+            });
+
+            it('returns a hash of new field instances identified by their ids', function () {
+
+                fields.firstName.should.be.instanceof.Field;
+                fields.lastName.should.be.instanceof.Field;
+                fields.age.should.be.instanceof.Field;
+
+            });
+
+            it('ensures each field has form options', function () {
+
+                fields.firstName.options
+                    .should.eql(form.options);
+
+                fields.lastName.options
+                    .should.eql(form.options);
+
+                fields.age.options
+                    .should.eql(form.options);
 
             });
 

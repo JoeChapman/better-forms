@@ -166,13 +166,15 @@ describe('Field:', sandbox(function () {
 
             });
 
-            describe('when renderErrors is not false', function () {
+            describe('when dataMessages is not false', function () {
 
                 it('will add data-message attribute if passed this.message', function () {
 
                     instance = new Field({ message: 'Foo' });
 
-                    instance.widgetHtml(undefined, { renderErrors: true })
+                    instance.dataMessages = true;
+
+                    instance.widgetHtml(undefined)
                         .should.equal('<input type="text" data-message="Foo"/>');
 
                 });
@@ -192,7 +194,9 @@ describe('Field:', sandbox(function () {
                         'noMatch': 'Not matching'
                     }});
 
-                    instance.widgetHtml(undefined, { renderErrors: true })
+                    instance.dataMessages = true;
+
+                    instance.widgetHtml(undefined)
                         .should.equal('<input type="text" ' +
                             'data-message-badInput="Some bad input" ' +
                             'data-message-customError="Oops" ' +
@@ -208,11 +212,58 @@ describe('Field:', sandbox(function () {
 
                 });
 
+                it('will not add data-message-* attributes if field dataMessages is set to false', function () {
+
+                    instance = new Field({message: {
+                        'badInput': 'Some bad input',
+                        'customError': 'Oops',
+                        'patternMismatch': 'Not valid',
+                        'rangeOverflow': 'Too big',
+                        'rangeUnderflow': 'Too small',
+                        'stepMismatch': 'Step wrong',
+                        'tooLong': 'Too long',
+                        'typeMismatch': 'Wrong type',
+                        'valueMissing': 'Missing',
+                        'noMatch': 'Not matching'
+                    }});
+
+                    instance.dataMessages = false;
+
+                    instance.widgetHtml(undefined)
+                        .should.equal('<input type="text"/>');
+
+                });
+
+                it('will not add data-message-* attributes if form dataMessages is set to false', function () {
+
+                    instance = new Field({ message: {
+                        'badInput': 'Some bad input',
+                        'customError': 'Oops',
+                        'patternMismatch': 'Not valid',
+                        'rangeOverflow': 'Too big',
+                        'rangeUnderflow': 'Too small',
+                        'stepMismatch': 'Step wrong',
+                        'tooLong': 'Too long',
+                        'typeMismatch': 'Wrong type',
+                        'valueMissing': 'Missing',
+                        'noMatch': 'Not matching'
+                    }});
+
+                    instance.dataMessages = false;
+
+                    instance.widgetHtml(undefined)
+                        .should.equal('<input type="text"/>');
+
+                });
+
+
                 it('does not add data-message-* attributes if the key is not in validStateMessages', function () {
 
                     instance = new Field({ message: { foo: 'Foo', bar: 'Bar', baz: 'Baz' } });
 
-                    instance.widgetHtml(undefined, { renderErrors: true })
+                    instance.dataMessages = true;
+
+                    instance.widgetHtml(undefined)
                         .should.equal('<input type="text"/>');
 
                 });
@@ -223,7 +274,9 @@ describe('Field:', sandbox(function () {
                         maxlength: 5
                     });
 
-                    instance.widgetHtml(undefined, { renderErrors: true })
+                    instance.dataMessages = true;
+
+                    instance.widgetHtml(undefined)
                         .should.equal('<input type="text" ' +
                             'maxlength="5" ' +
                             'data-message-tooLong="Please use 5 characters or less"/>'
@@ -237,7 +290,9 @@ describe('Field:', sandbox(function () {
                         required: true
                     });
 
-                    instance.widgetHtml(undefined, { renderErrors: true })
+                    instance.dataMessages = true;
+
+                    instance.widgetHtml(undefined)
                         .should.equal('<input type="text" ' +
                             'required="true" ' +
                             'data-message-valueMissing="This field is required"/>'
@@ -251,7 +306,9 @@ describe('Field:', sandbox(function () {
                         pattern: /\d{4}/
                     });
 
-                    instance.widgetHtml(undefined, { renderErrors: true })
+                    instance.dataMessages = true;
+
+                    instance.widgetHtml(undefined)
                         .should.equal('<input type="text" ' +
                             'pattern="\\d{4}" ' +
                             'data-message-patternMismatch="Please use the required format"/>'
@@ -265,7 +322,9 @@ describe('Field:', sandbox(function () {
                         id: 'confirm'
                     });
 
-                    instance.widgetHtml(undefined, { renderErrors: true })
+                    instance.dataMessages = true;
+
+                    instance.widgetHtml(undefined)
                         .should.equal('<input type="text" ' +
                             'match="password" ' +
                             'name="confirm" ' +
@@ -273,6 +332,7 @@ describe('Field:', sandbox(function () {
                             'data-message-noMatch="' + instance.id + ' must match ' + instance.match + '"/>'
                         );
                 });
+
             });
 
         });
