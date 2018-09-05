@@ -1,0 +1,11 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "examples/fieldsets/package.json",
+        "examples/simple/package.json",
+        "package.json"
+      ]
+    }
+  }
+}
