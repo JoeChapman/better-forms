@@ -5,7 +5,7 @@ A better way to create, validate and handle forms in [Express](https://github.co
 
 [![Build Status](https://travis-ci.org/JoeChapman/better-forms.svg?branch=master)](https://travis-ci.org/JoeChapman/better-forms)
 [![NPM version](https://badge.fury.io/js/better-forms.svg)](http://badge.fury.io/js/better-forms)
-[![Codeship Status for JoeChapman/better-forms](https://codeship.com/projects/631a8170-db9b-0132-1a13-46e2b99ac450/status?branch=master)](https://codeship.com/projects/79673)
+[![Codeship Status for JoeChapman/better-forms](https://codeship.com/projects/631a8170-db9b-0132-1a13-46e2b99ac450/status?branch=master)](https://codeship.com/projects/79673) [![Greenkeeper badge](https://badges.greenkeeper.io/JoeChapman/better-forms.svg)](https://greenkeeper.io/)
 
 Use Better Forms to create your form, securely handle requests, validate form data and display validation errors.
 
